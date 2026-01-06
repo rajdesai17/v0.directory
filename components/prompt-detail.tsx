@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-import Image from "next/image"
-import { Copy, Share, Download, ArrowLeft, ExternalLink } from "lucide-react"
+import { Copy, Share, Download, ArrowLeft, ExternalLink, User } from "lucide-react"
 import type { Prompt } from "@/lib/data"
 import { useState } from "react"
 import Link from "next/link"
@@ -80,13 +79,9 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <Image
-              src={prompt.author.avatar || "/placeholder.svg"}
-              alt={prompt.author.name}
-              width={36}
-              height={36}
-              className="rounded-full"
-            />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
+              <User className="h-4 w-4 text-muted-foreground" />
+            </div>
             <span className="text-sm text-foreground">{prompt.author.name}</span>
           </div>
 

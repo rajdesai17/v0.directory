@@ -7,13 +7,12 @@ import { Github, ChevronDown, Menu, X } from "lucide-react"
 const categories = [
   { name: "Dashboards", slug: "dashboards" },
   { name: "Landing Pages", slug: "landing-pages" },
-  { name: "Auth & Onboarding", slug: "auth-onboarding" },
-  { name: "AI / ML", slug: "ai-ml" },
-  { name: "Fintech", slug: "fintech" },
-  { name: "Dev Tools", slug: "dev-tools" },
-  { name: "Mobile UI", slug: "mobile-ui" },
-  { name: "Marketing", slug: "marketing" },
-  { name: "Misc", slug: "misc" },
+  { name: "Components", slug: "components" },
+  { name: "E-commerce", slug: "ecommerce" },
+  { name: "Portfolio", slug: "portfolio" },
+  { name: "Authentication", slug: "authentication" },
+  { name: "Animations", slug: "animations" },
+  { name: "Apps", slug: "apps" },
 ]
 
 export function Header() {
