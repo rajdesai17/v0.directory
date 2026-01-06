@@ -40,6 +40,8 @@ function AuthBadge({ type }: { type: string }) {
 }
 
 export function MCPDetailContent({ mcp }: { mcp: MCP }) {
+  const isV0MCP = mcp.slug === "v0"
+
   return (
     <main className="py-14">
       <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
@@ -78,129 +80,303 @@ export function MCPDetailContent({ mcp }: { mcp: MCP }) {
         </div>
 
         <div className="mt-12 max-w-3xl border border-dashed border-[#333] rounded-lg p-8">
-          <h2 className="text-xl font-semibold text-foreground mb-2">How to Add {mcp.name} MCP in v0</h2>
+          {isV0MCP ? (
+            <>
+              <h2 className="text-xl font-semibold text-foreground mb-2">How to Use v0 MCP in Your IDE</h2>
 
-          <section className="mt-8">
-            <h3 className="text-lg font-medium text-foreground mb-3">What is MCP?</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Model Context Protocol (MCP) is a protocol that enables AI assistants to access custom tools and services.
-              v0 supports connecting to MCP servers to extend its capabilities with additional integrations.
-            </p>
-          </section>
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Overview</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  The v0 MCP server enables your IDE's AI assistant to create and manage v0 chats, access v0's code
+                  generation capabilities, and integrate v0 workflows into your development process.
+                </p>
+              </section>
 
-          <section className="mt-8">
-            <h3 className="text-lg font-medium text-foreground mb-3">Configuration Steps</h3>
-            <ol className="list-decimal list-inside space-y-4 text-muted-foreground">
-              <li>
-                <span className="font-medium text-foreground">Open v0 Settings</span>
-                <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
-                  <li>Go to your v0 chat or project</li>
-                  <li>Click on the sidebar and navigate to "Connect" section</li>
-                  <li>Look for "Custom MCP" or "Add MCP Connection"</li>
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Supported IDEs</h3>
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                  <li>
+                    <span className="text-foreground">Cursor</span> - AI-powered code editor
+                  </li>
+                  <li>
+                    <span className="text-foreground">Claude Desktop</span> - Anthropic's Claude desktop application
+                  </li>
+                  <li>
+                    <span className="text-foreground">VS Code</span> (with MCP extensions)
+                  </li>
+                  <li>Any MCP-compatible IDE</li>
                 </ul>
-              </li>
-              <li>
-                <span className="font-medium text-foreground">Add Custom MCP Connection</span>
-                <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
-                  <li>Click "Add Custom MCP Connection" button</li>
-                  <li>A modal will appear with configuration fields</li>
-                </ul>
-              </li>
-              <li>
-                <span className="font-medium text-foreground">Fill in the Connection Details</span>
-              </li>
-            </ol>
-          </section>
+              </section>
 
-          <section className="mt-8">
-            <h3 className="text-lg font-medium text-foreground mb-3">Connection Details for {mcp.name}</h3>
-            <div className="bg-[#0a0a0a] border border-[#222] rounded-lg p-5 space-y-4">
-              <div>
-                <label className="block text-xs text-muted-foreground mb-1.5">Name</label>
-                <div className="flex items-center justify-between bg-[#111] border border-[#333] rounded px-3 py-2">
-                  <span className="text-sm text-foreground">{mcp.name}</span>
-                  <CopyButton text={mcp.name} />
-                </div>
-              </div>
-
-              {mcp.mcpUrl && (
-                <div>
-                  <label className="block text-xs text-muted-foreground mb-1.5">URL</label>
-                  <div className="flex items-center justify-between bg-[#111] border border-[#333] rounded px-3 py-2">
-                    <span className="text-sm text-foreground font-mono">{mcp.mcpUrl}</span>
-                    <CopyButton text={mcp.mcpUrl} />
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <label className="block text-xs text-muted-foreground mb-1.5">Authentication</label>
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex bg-[#111] border border-[#333] rounded overflow-hidden">
-                    {["none", "bearer", "headers", "oauth"].map((auth) => (
-                      <div
-                        key={auth}
-                        className={`px-3 py-1.5 text-xs capitalize ${
-                          mcp.authType === auth ? "bg-[#333] text-foreground" : "text-muted-foreground"
-                        }`}
-                      >
-                        {auth === "bearer"
-                          ? "Bearer"
-                          : auth === "headers"
-                            ? "Headers"
-                            : auth === "oauth"
-                              ? "OAuth"
-                              : "None"}
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Prerequisites</h3>
+                <ol className="list-decimal list-inside space-y-3 text-muted-foreground">
+                  <li>
+                    Get your API key from your{" "}
+                    <Link
+                      href="https://v0.dev/chat/settings/keys"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground hover:underline"
+                    >
+                      v0 account settings
+                    </Link>
+                  </li>
+                  <li>
+                    Set your API key as an environment variable:
+                    <div className="mt-2 bg-[#0a0a0a] border border-[#222] rounded-lg p-4 font-mono text-sm">
+                      <div className="flex items-center justify-between">
+                        <code className="text-[#e879f9]">export V0_API_KEY=your_api_key_here</code>
+                        <CopyButton text="export V0_API_KEY=your_api_key_here" />
                       </div>
-                    ))}
+                    </div>
+                  </li>
+                </ol>
+              </section>
+
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">IDE Configuration</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Add the following configuration to your IDE's MCP settings file:
+                </p>
+
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      <span className="text-foreground">Cursor:</span> ~/.cursor/mcp.json
+                    </p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      <span className="text-foreground">Claude Desktop:</span> ~/.config/claude-desktop/config.json
+                    </p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      <span className="text-foreground">VS Code:</span> Add via MCP extension settings
+                    </p>
+                  </div>
+
+                  <div className="bg-[#0a0a0a] border border-[#222] rounded-lg overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-2 border-b border-[#222] bg-[#111]">
+                      <span className="text-xs text-muted-foreground">mcp.json</span>
+                      <CopyButton
+                        text={`{
+  "mcpServers": {
+    "v0": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.v0.dev",
+        "--header",
+        "Authorization: Bearer \${V0_API_KEY}"
+      ]
+    }
+  }
+}`}
+                      />
+                    </div>
+                    <pre className="p-4 overflow-x-auto text-sm">
+                      <code>
+                        <span className="text-muted-foreground">{"{"}</span>
+                        {"\n"}
+                        {"  "}
+                        <span className="text-[#7dd3fc]">"mcpServers"</span>
+                        <span className="text-muted-foreground">:</span>{" "}
+                        <span className="text-muted-foreground">{"{"}</span>
+                        {"\n"}
+                        {"    "}
+                        <span className="text-[#7dd3fc]">"v0"</span>
+                        <span className="text-muted-foreground">:</span>{" "}
+                        <span className="text-muted-foreground">{"{"}</span>
+                        {"\n"}
+                        {"      "}
+                        <span className="text-[#7dd3fc]">"command"</span>
+                        <span className="text-muted-foreground">:</span> <span className="text-[#a5d6ff]">"npx"</span>
+                        <span className="text-muted-foreground">,</span>
+                        {"\n"}
+                        {"      "}
+                        <span className="text-[#7dd3fc]">"args"</span>
+                        <span className="text-muted-foreground">:</span>{" "}
+                        <span className="text-muted-foreground">[</span>
+                        {"\n"}
+                        {"        "}
+                        <span className="text-[#a5d6ff]">"mcp-remote"</span>
+                        <span className="text-muted-foreground">,</span>
+                        {"\n"}
+                        {"        "}
+                        <span className="text-[#a5d6ff]">"https://mcp.v0.dev"</span>
+                        <span className="text-muted-foreground">,</span>
+                        {"\n"}
+                        {"        "}
+                        <span className="text-[#a5d6ff]">"--header"</span>
+                        <span className="text-muted-foreground">,</span>
+                        {"\n"}
+                        {"        "}
+                        <span className="text-[#a5d6ff]">"Authorization: Bearer ${"{"}</span>
+                        <span className="text-[#e879f9]">V0_API_KEY</span>
+                        <span className="text-[#a5d6ff]">{"}"}"</span>
+                        {"\n"}
+                        {"      "}
+                        <span className="text-muted-foreground">]</span>
+                        {"\n"}
+                        {"    "}
+                        <span className="text-muted-foreground">{"}"}</span>
+                        {"\n"}
+                        {"  "}
+                        <span className="text-muted-foreground">{"}"}</span>
+                        {"\n"}
+                        <span className="text-muted-foreground">{"}"}</span>
+                      </code>
+                    </pre>
                   </div>
                 </div>
-              </div>
+              </section>
 
-              {mcp.authType && mcp.authType !== "none" && (
-                <div className="bg-[#111] border border-[#333] rounded px-3 py-3 mt-2">
-                  <p className="text-xs text-muted-foreground">
-                    {mcp.authType === "bearer" && (
-                      <>
-                        You will need to provide your <span className="text-foreground">{mcp.name} API key</span> as the
-                        Bearer token.
-                      </>
-                    )}
-                    {mcp.authType === "oauth" && (
-                      <>
-                        You will be redirected to <span className="text-foreground">{mcp.name}</span> to authorize the
-                        connection.
-                      </>
-                    )}
-                    {mcp.authType === "headers" && <>You will need to configure custom headers for authentication.</>}
-                  </p>
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Usage Examples</h3>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-foreground">Create chats:</span>
+                    <span className="italic">"Create a v0 chat for building a React dashboard component"</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-foreground">Find chats:</span>
+                    <span className="italic">"Find my v0 chats related to React components"</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-foreground">Send messages:</span>
+                    <span className="italic">"Send a message to chat asking to add dark mode support"</span>
+                  </li>
+                </ul>
+              </section>
+            </>
+          ) : (
+            <>
+              <h2 className="text-xl font-semibold text-foreground mb-2">How to Add {mcp.name} MCP in v0</h2>
+
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">What is MCP?</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Model Context Protocol (MCP) is a protocol that enables AI assistants to access custom tools and
+                  services. v0 supports connecting to MCP servers to extend its capabilities with additional
+                  integrations.
+                </p>
+              </section>
+
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Configuration Steps</h3>
+                <ol className="list-decimal list-inside space-y-4 text-muted-foreground">
+                  <li>
+                    <span className="font-medium text-foreground">Open v0 Settings</span>
+                    <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                      <li>Go to your v0 chat or project</li>
+                      <li>Click on the sidebar and navigate to "Connect" section</li>
+                      <li>Look for "Custom MCP" or "Add MCP Connection"</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Add Custom MCP Connection</span>
+                    <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                      <li>Click "Add Custom MCP Connection" button</li>
+                      <li>A modal will appear with configuration fields</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span className="font-medium text-foreground">Fill in the Connection Details</span>
+                  </li>
+                </ol>
+              </section>
+
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Connection Details for {mcp.name}</h3>
+                <div className="bg-[#0a0a0a] border border-[#222] rounded-lg p-5 space-y-4">
+                  <div>
+                    <label className="block text-xs text-muted-foreground mb-1.5">Name</label>
+                    <div className="flex items-center justify-between bg-[#111] border border-[#333] rounded px-3 py-2">
+                      <span className="text-sm text-foreground">{mcp.name}</span>
+                      <CopyButton text={mcp.name} />
+                    </div>
+                  </div>
+
+                  {mcp.mcpUrl && (
+                    <div>
+                      <label className="block text-xs text-muted-foreground mb-1.5">URL</label>
+                      <div className="flex items-center justify-between bg-[#111] border border-[#333] rounded px-3 py-2">
+                        <span className="text-sm text-foreground font-mono">{mcp.mcpUrl}</span>
+                        <CopyButton text={mcp.mcpUrl} />
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block text-xs text-muted-foreground mb-1.5">Authentication</label>
+                    <div className="flex items-center gap-2 mt-1">
+                      <div className="flex bg-[#111] border border-[#333] rounded overflow-hidden">
+                        {["none", "bearer", "headers", "oauth"].map((auth) => (
+                          <div
+                            key={auth}
+                            className={`px-3 py-1.5 text-xs capitalize ${
+                              mcp.authType === auth ? "bg-[#333] text-foreground" : "text-muted-foreground"
+                            }`}
+                          >
+                            {auth === "bearer"
+                              ? "Bearer"
+                              : auth === "headers"
+                                ? "Headers"
+                                : auth === "oauth"
+                                  ? "OAuth"
+                                  : "None"}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {mcp.authType && mcp.authType !== "none" && (
+                    <div className="bg-[#111] border border-[#333] rounded px-3 py-3 mt-2">
+                      <p className="text-xs text-muted-foreground">
+                        {mcp.authType === "bearer" && (
+                          <>
+                            You will need to provide your <span className="text-foreground">{mcp.name} API key</span> as
+                            the Bearer token.
+                          </>
+                        )}
+                        {mcp.authType === "oauth" && (
+                          <>
+                            You will be redirected to <span className="text-foreground">{mcp.name}</span> to authorize
+                            the connection.
+                          </>
+                        )}
+                        {mcp.authType === "headers" && (
+                          <>You will need to configure custom headers for authentication.</>
+                        )}
+                      </p>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </section>
+              </section>
 
-          <section className="mt-8">
-            <h3 className="text-lg font-medium text-foreground mb-3">Important Notes</h3>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              <li>MCP servers extend v0's capabilities with additional tools and integrations</li>
-              <li>Make sure you have an active {mcp.name} account before connecting</li>
-              {mcp.authType === "bearer" && <li>Keep your API keys secure and never share them publicly</li>}
-              {mcp.docsUrl && (
-                <li>
-                  See the{" "}
-                  <Link
-                    href={mcp.docsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground hover:underline"
-                  >
-                    official {mcp.name} documentation
-                  </Link>{" "}
-                  for API key generation and detailed setup
-                </li>
-              )}
-            </ul>
-          </section>
+              <section className="mt-8">
+                <h3 className="text-lg font-medium text-foreground mb-3">Important Notes</h3>
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                  <li>MCP servers extend v0's capabilities with additional tools and integrations</li>
+                  <li>Make sure you have an active {mcp.name} account before connecting</li>
+                  {mcp.authType === "bearer" && <li>Keep your API keys secure and never share them publicly</li>}
+                  {mcp.docsUrl && (
+                    <li>
+                      See the{" "}
+                      <Link
+                        href={mcp.docsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground hover:underline"
+                      >
+                        official {mcp.name} documentation
+                      </Link>{" "}
+                      for API key generation and detailed setup
+                    </li>
+                  )}
+                </ul>
+              </section>
+            </>
+          )}
         </div>
       </div>
     </main>

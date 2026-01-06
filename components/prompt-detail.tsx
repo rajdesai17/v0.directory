@@ -2,7 +2,7 @@
 
 import type React from "react"
 import Image from "next/image"
-import { Copy, Share, Download, ArrowLeft } from "lucide-react"
+import { Copy, Share, Download, ArrowLeft, ExternalLink } from "lucide-react"
 import type { Prompt } from "@/lib/data"
 import { useState } from "react"
 import Link from "next/link"
@@ -23,7 +23,7 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
 
   return (
     <div className="flex flex-col gap-10 lg:flex-row">
-      <div className="flex-1">
+      <div className="min-h-[600px] flex-1">
         <Link
           href="/browse"
           className="mb-8 inline-flex items-center gap-2 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
@@ -32,7 +32,7 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
           Back to prompts
         </Link>
 
-        <div className="overflow-hidden rounded-lg border border-border bg-card">
+        <div className="h-[500px] overflow-hidden rounded-lg border border-border bg-card">
           <div className="flex items-center justify-end border-b border-border px-4 py-3">
             <div className="flex items-center gap-1">
               <button
@@ -52,7 +52,7 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
               </button>
             </div>
           </div>
-          <div className="max-h-[600px] overflow-auto p-6">
+          <div className="h-[calc(100%-49px)] overflow-auto p-6">
             <pre className="whitespace-pre-wrap font-mono text-[13px] leading-relaxed text-muted-foreground">
               {prompt.content}
             </pre>
@@ -89,6 +89,23 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
             />
             <span className="text-sm text-foreground">{prompt.author.name}</span>
           </div>
+
+          {prompt.previewUrl && (
+            <div className="rounded-lg border border-border bg-card p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-foreground">View Example</span>
+                <a
+                  href={prompt.previewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {prompt.previewUrl.replace("https://", "")}
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          )}
 
           <div className="space-y-3">
             <button

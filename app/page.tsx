@@ -44,6 +44,17 @@ const fadeInVariants = {
   },
 }
 
+const contributors = [
+  {
+    id: "raj",
+    name: "Raj",
+    twitter: "https://x.com/rajoninternet",
+  },
+]
+
+const skeletonsBefore = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-before-${i + 1}` }))
+const skeletonsAfter = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-after-${i + 1}` }))
+
 function HomeContent() {
   const featuredPrompts = prompts.slice(0, 8)
 
@@ -109,6 +120,52 @@ function HomeContent() {
             {featuredPrompts.map((prompt, index) => (
               <motion.div key={prompt.id} variants={itemVariants}>
                 <PromptCard prompt={prompt} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      <motion.section
+        className="py-6"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        transition={{ delay: 0.4 }}
+      >
+        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
+          <motion.div className="text-center mb-6" variants={itemVariants}>
+            <h2 className="text-sm font-medium text-foreground">Contributors</h2>
+          </motion.div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {skeletonsBefore.map((slot) => (
+              <motion.div key={slot.id} variants={itemVariants}>
+                <div className="w-20 h-8 rounded-lg border border-dashed border-border/30 bg-card/10 flex items-center justify-center">
+                  <div className="h-3 w-12 animate-pulse rounded bg-muted/30" />
+                </div>
+              </motion.div>
+            ))}
+            {contributors.map((contributor) => (
+              <motion.div key={contributor.id} variants={itemVariants}>
+                <Link
+                  href={contributor.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-24 h-8 flex items-center justify-center gap-2 rounded-lg border border-border/50 bg-card/30 transition-colors hover:bg-card/60"
+                >
+                  <span className="text-xs font-medium text-foreground">{contributor.name}</span>
+                  <span className="text-border/50">|</span>
+                  <svg viewBox="0 0 24 24" className="h-3 w-3 text-foreground" fill="currentColor" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </Link>
+              </motion.div>
+            ))}
+            {skeletonsAfter.map((slot) => (
+              <motion.div key={slot.id} variants={itemVariants}>
+                <div className="w-20 h-8 rounded-lg border border-dashed border-border/30 bg-card/10 flex items-center justify-center">
+                  <div className="h-3 w-12 animate-pulse rounded bg-muted/30" />
+                </div>
               </motion.div>
             ))}
           </div>
