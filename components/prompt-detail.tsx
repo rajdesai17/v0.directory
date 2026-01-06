@@ -66,19 +66,22 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
       </div>
 
       <aside className="w-full shrink-0 lg:w-72">
-        <div className="sticky top-24 space-y-6">
+        <div className="sticky top-24 space-y-6 rounded-lg border border-border bg-card p-5">
           <div>
             <h1 className="text-lg font-semibold text-foreground">{prompt.title}</h1>
             <div className="mt-4 flex flex-wrap gap-2">
               {prompt.tags.map((tag) => (
-                <span key={tag} className="rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground">
+                <span
+                  key={tag}
+                  className="rounded-md border border-border/50 bg-secondary/50 px-2.5 py-1 text-xs text-muted-foreground"
+                >
                   {tag}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 border-t border-border/50 pt-4">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
               <User className="h-4 w-4 text-muted-foreground" />
             </div>
@@ -86,7 +89,7 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
           </div>
 
           {prompt.previewUrl && (
-            <div className="rounded-lg border border-border bg-card p-4">
+            <div className="border-t border-border/50 pt-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-foreground">View Example</span>
                 <a
@@ -102,14 +105,14 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
             </div>
           )}
 
-          <div className="space-y-3">
+          <div className="space-y-3 border-t border-border/50 pt-4">
             <button
               onClick={handleCopy}
               className="flex w-full items-center justify-center rounded-lg bg-foreground px-4 py-2.5 text-[13px] font-medium text-background transition-colors hover:bg-foreground/90"
             >
               {copied ? "Copied!" : "Copy Prompt"}
             </button>
-            <button className="flex w-full items-center justify-center rounded-lg border border-border bg-card px-4 py-2.5 text-[13px] text-foreground transition-colors hover:bg-secondary">
+            <button className="flex w-full items-center justify-center rounded-lg border border-border bg-secondary/50 px-4 py-2.5 text-[13px] text-foreground transition-colors hover:bg-secondary">
               Use in v0
             </button>
           </div>
