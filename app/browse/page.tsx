@@ -29,14 +29,16 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
       <Header />
 
       <main className="flex-1 w-full">
-        <div className="mx-auto max-w-[1200px] px-8 py-8 lg:px-16">
-          <div className="grid grid-cols-[208px_1fr] gap-12">
-            <CategorySidebar categories={categories} />
+        <div className="mx-auto max-w-[1200px] px-4 py-8 lg:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[208px_1fr] gap-8 lg:gap-12">
+            <div className="hidden lg:block">
+              <CategorySidebar categories={categories} />
+            </div>
 
             <div className="min-h-[600px]">
-              <div className="mb-6 flex items-center justify-between gap-4">
+              <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <h1 className="text-lg font-semibold text-foreground whitespace-nowrap">{title}</h1>
-                <SearchBar placeholder="Search prompts..." className="w-72" />
+                <SearchBar placeholder="Search prompts..." className="w-full sm:w-72" />
               </div>
 
               {filteredPrompts.length === 0 ? (
@@ -46,7 +48,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
                   </p>
                 </div>
               ) : (
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {filteredPrompts.map((prompt) => (
                     <PromptCard key={prompt.id} prompt={prompt} />
                   ))}
@@ -58,7 +60,7 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
       </main>
 
       <footer className="border-t border-border/40 py-6">
-        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
+        <div className="mx-auto max-w-[1200px] px-4 lg:px-16">
           <p className="text-center text-xs text-muted-foreground/60">
             This site is not directly affiliated with Vercel or v0.
           </p>
