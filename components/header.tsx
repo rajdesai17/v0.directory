@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Github, ChevronDown, Menu, X } from "lucide-react"
 
 const categories = [
@@ -18,6 +18,23 @@ const categories = [
 export function Header() {
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setCategoriesOpen(false)
+      }
+    }
+
+    if (categoriesOpen) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [categoriesOpen])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-xl">
@@ -51,7 +68,7 @@ export function Header() {
           </Link>
 
           {/* Categories Dropdown */}
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setCategoriesOpen(!categoriesOpen)}
               className="flex items-center gap-1 rounded-md px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -61,21 +78,18 @@ export function Header() {
             </button>
 
             {categoriesOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setCategoriesOpen(false)} />
-                <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-lg border border-border bg-background p-1 shadow-xl">
-                  {categories.map((category) => (
-                    <Link
-                      key={category.slug}
-                      href={`/browse?category=${category.slug}`}
-                      onClick={() => setCategoriesOpen(false)}
-                      className="block rounded-md px-3 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
-                </div>
-              </>
+              <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-lg border border-border bg-background p-1 shadow-xl">
+                {categories.map((category) => (
+                  <Link
+                    key={category.slug}
+                    href={`/browse?category=${category.slug}`}
+                    onClick={() => setCategoriesOpen(false)}
+                    className="block rounded-md px-3 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
             )}
           </div>
 
