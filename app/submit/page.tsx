@@ -18,6 +18,7 @@ export default function SubmitPage() {
     customCategory: "",
     v0Link: "",
     author: "",
+    xUsername: "",
     mcpUrl: "",
     authType: "none" as "none" | "bearer" | "headers" | "oauth",
     instructionContent: "",
@@ -77,6 +78,7 @@ export default function SubmitPage() {
       customCategory: "",
       v0Link: "",
       author: "",
+      xUsername: "",
       mcpUrl: "",
       authType: "none",
       instructionContent: "",
@@ -156,55 +158,52 @@ export default function SubmitPage() {
               )}
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                {/* Common fields: Title & Description */}
-                <div>
-                  <label htmlFor="title" className="mb-2 block text-sm font-medium text-foreground">
-                    {submissionType === "mcp"
-                      ? "MCP Name"
-                      : submissionType === "instruction"
-                        ? "Instruction Title"
-                        : "Title"}
-                  </label>
-                  <input
-                    type="text"
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder={
-                      submissionType === "mcp"
-                        ? "e.g., GitHub MCP Server"
+                {/* Common fields: Title & Description side by side */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="title" className="mb-2 block text-sm font-medium text-foreground">
+                      {submissionType === "mcp"
+                        ? "MCP Name"
                         : submissionType === "instruction"
-                          ? "e.g., Plan Mode"
-                          : "e.g., Next.js Dashboard Starter"
-                    }
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                    required
-                  />
-                </div>
+                          ? "Instruction Title"
+                          : "Title"}
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      value={formData.title}
+                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      placeholder={
+                        submissionType === "mcp"
+                          ? "e.g., GitHub MCP"
+                          : submissionType === "instruction"
+                            ? "e.g., Plan Mode"
+                            : "e.g., SaaS Dashboard"
+                      }
+                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      required
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="description" className="mb-2 block text-sm font-medium text-foreground">
-                    Description
-                  </label>
-                  <input
-                    type="text"
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder={
-                      submissionType === "mcp"
-                        ? "What does this MCP do?"
-                        : submissionType === "instruction"
-                          ? "What does this instruction do?"
-                          : "Brief description of what this prompt creates"
-                    }
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                    required
-                  />
+                  <div>
+                    <label htmlFor="description" className="mb-2 block text-sm font-medium text-foreground">
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      id="description"
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      placeholder="Brief description"
+                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      required
+                    />
+                  </div>
                 </div>
 
                 {submissionType === "prompt" && (
                   <>
+                    {/* Full Prompt */}
                     <div>
                       <label htmlFor="prompt" className="mb-2 block text-sm font-medium text-foreground">
                         Full Prompt
@@ -214,34 +213,50 @@ export default function SubmitPage() {
                         value={formData.prompt}
                         onChange={(e) => setFormData({ ...formData, prompt: e.target.value })}
                         placeholder="Paste your complete prompt here..."
-                        rows={8}
+                        rows={10}
                         className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                         required
                       />
                     </div>
 
-                    <div>
-                      <label htmlFor="category" className="mb-2 block text-sm font-medium text-foreground">
-                        Category
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="category"
-                          value={formData.category}
-                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                          className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-sm text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                          required
-                        >
-                          <option value="" disabled>
-                            Select a category
-                          </option>
-                          {categoryOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                              {option.label}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="category" className="mb-2 block text-sm font-medium text-foreground">
+                          Category
+                        </label>
+                        <div className="relative">
+                          <select
+                            id="category"
+                            value={formData.category}
+                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                            className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-sm text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                            required
+                          >
+                            <option value="" disabled>
+                              Select category
                             </option>
-                          ))}
-                        </select>
-                        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                            {categoryOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label htmlFor="v0Link" className="mb-2 block text-sm font-medium text-foreground">
+                          v0 Link <span className="text-muted-foreground font-normal">(optional)</span>
+                        </label>
+                        <input
+                          type="url"
+                          id="v0Link"
+                          value={formData.v0Link}
+                          onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
+                          placeholder="https://v0.dev/t/..."
+                          className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                        />
                       </div>
                     </div>
 
@@ -261,20 +276,6 @@ export default function SubmitPage() {
                         />
                       </div>
                     )}
-
-                    <div>
-                      <label htmlFor="v0Link" className="mb-2 block text-sm font-medium text-foreground">
-                        v0 Link <span className="text-muted-foreground font-normal">(optional)</span>
-                      </label>
-                      <input
-                        type="url"
-                        id="v0Link"
-                        value={formData.v0Link}
-                        onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
-                        placeholder="https://v0.dev/t/..."
-                        className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                      />
-                    </div>
                   </>
                 )}
 
@@ -348,19 +349,34 @@ export default function SubmitPage() {
                   </div>
                 )}
 
-                {/* Common field: Author */}
-                <div>
-                  <label htmlFor="author" className="mb-2 block text-sm font-medium text-foreground">
-                    Your Name <span className="text-muted-foreground font-normal">(optional)</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="author"
-                    value={formData.author}
-                    onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-                    placeholder="How should we credit you?"
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="author" className="mb-2 block text-sm font-medium text-foreground">
+                      Your Name <span className="text-muted-foreground font-normal">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="author"
+                      value={formData.author}
+                      onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                      placeholder="How should we credit you?"
+                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="xUsername" className="mb-2 block text-sm font-medium text-foreground">
+                      X Username <span className="text-muted-foreground font-normal">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="xUsername"
+                      value={formData.xUsername}
+                      onChange={(e) => setFormData({ ...formData, xUsername: e.target.value })}
+                      placeholder="@username"
+                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    />
+                  </div>
                 </div>
 
                 <div className="mt-2">
