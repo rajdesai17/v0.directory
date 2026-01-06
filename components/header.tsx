@@ -105,7 +105,7 @@ export function Header() {
         {/* Right - Utility */}
         <div className="flex items-center gap-1">
           <Link
-            href="https://github.com"
+            href="https://github.com/rajdesai17/v0.directory"
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
