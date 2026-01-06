@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script"
+import { CommunityToast } from "@/components/community-toast"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -40,7 +42,13 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`font-sans antialiased`}>
         {children}
+        <CommunityToast />
         <Analytics />
+        <Script
+          src="https://scripts.simpleanalyticscdn.com/latest.js"
+          data-collect-dnt="true"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   )

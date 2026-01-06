@@ -10,6 +10,7 @@ export interface Prompt {
     avatar: string
   }
   createdAt: string
+  previewUrl?: string // Added optional preview URL field
 }
 
 export interface MCP {
@@ -306,6 +307,106 @@ export const instructions: Instruction[] = [
 ]
 
 export const prompts: Prompt[] = [
+  {
+    id: "10",
+    slug: "premium-saas-landing-page",
+    title: "Premium SaaS Landing Page Template",
+    content: `Role: You are an expert Senior Frontend Engineer and UI/UX Designer specializing in high-end, dark-themed SaaS interfaces.
+
+Objective: Create a comprehensive, production-ready landing page template for a premium SaaS product. The design must feel institutional, fast, and expensive.
+
+1. Design System & Aesthetics
+Color Palette (Zinc Monochromatic): * Background: zinc-950 (deep charcoal/black).
+
+Surfaces: zinc-900 for cards with a subtle zinc-800 border (1px).
+
+Typography: Primary text in white (#FFFFFF), secondary/muted text in zinc-400.
+
+Accents: Pure white for primary CTAs; subtle zinc-500 for icons.
+
+Typography:
+
+Display: Cal Sans for Hero headlines (tight letter spacing, semi-bold).
+
+Headers: Instrument Sans for section titles (clean, modern).
+
+Body: Manrope for readability (optimized line-height: 1.6).
+
+Foundations:
+
+Border Radius: 2xl (16px) for cards; full (pill-shape) for buttons and tags.
+
+Texture: Apply a subtle, low-opacity noise/grain overlay (1-2% opacity) to the entire background to eliminate flat digital gradients.
+
+2. Layout & Navigation
+Navbar: Fixed, pill-shaped glassmorphic bar.
+
+Effects: backdrop-blur-md, bg-zinc-900/40, and a 1px border in zinc-800.
+
+Interactions: Links should have a "magnetic" hover effect where a small zinc-800 background pill follows the cursor movement across the nav items.
+
+Hero Section: * Min-height 100vh. Centered vertical layout.
+
+Headline: Massive text-7xl display type. Use a "Text Mask" animation where words slide up from "behind" a clipping mask on page load.
+
+Primary CTA: High-contrast white button. Instead of liquid metal, use a Subtle Shimmer/Pulse: A faint white light beam that travels around the border or a soft "glow" that pulses slowly in the background.
+
+Social Proof: Overlapping avatars with a "staggered reveal" animation on scroll.
+
+3. Micro-Animations & Interactions
+Smooth Scroll: Integrate Lenis for high-inertia, silky scrolling.
+
+Hover States: * Cards: 1.02x scale up + border color transition from zinc-800 to zinc-600.
+
+Buttons: Magnetic pull effect (the button moves slightly toward the cursor when nearby).
+
+Scroll-Triggered Reveals: * Elements should use Framer Motion variants to fade in and slide up (Y: 20px to 0) with a stiffness: 100 spring physics.
+
+Active States: Interactive elements (like toggle switches or tabs) should use "Layout Projections" to animate the background moving from one option to the next.
+
+4. Component Specs
+Bento Grid (Features):
+
+Non-uniform grid layout.
+
+Micro-feature 1: Live-updating "System Status" or "Data Stream" animation (small green dots pulsing).
+
+Micro-feature 2: A "Keyboard Command" visual showing CMD+K with a key-press animation.
+
+Micro-feature 3: A "Line Chart" that draws itself as it enters the viewport.
+
+Infinite Marquee: * A logo cloud for "Trusted By" sections.
+
+Use a mask-image linear gradient on the left and right sides so the logos fade in/out of the edges.
+
+Pricing: * Pro Tier: Use a "Border Beam" animation—a subtle 2px wide light that travels slowly around the card perimeter to draw the eye.
+
+Pricing Toggle: A smooth sliding switch for Monthly/Yearly billing.
+
+5. Technical Requirements
+Framework: Next.js (App Router), Tailwind CSS.
+
+Animations: Framer Motion (for UI transitions), GSAP (for complex timelines if needed).
+
+Icons: Lucide React (stroke width: 1.5px for a premium thin look).
+
+Optimization: Use next/font for local font loading and priority tags for hero images to ensure zero Layout Shift (CLS).
+
+6. Final CTA & Footer
+Final Call: A "Centered Impact" section. Large headline, muted subtitle, and a primary "Get Started" button with a subtle drop-shadow glow.
+
+Footer: Minimalist 4-column layout.
+
+Include a "System Status" indicator in the footer (e.g., "All Systems Operational" with a pulsing green dot) to build enterprise trust.`,
+    category: "landing-pages",
+    tags: ["Next.js", "Tailwind CSS", "Framer Motion", "SaaS", "Dark Theme", "GSAP"],
+    author: {
+      name: "Raj",
+      avatar: "/diverse-group-avatars.png",
+    },
+    createdAt: "2024-01-16",
+    previewUrl: "https://v0.link/6qUhlbF",
+  },
   {
     id: "1",
     slug: "front-end-developer",
