@@ -25,33 +25,45 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <main className="mx-auto max-w-[1200px] px-8 py-10 lg:px-16">
-        <div className="flex gap-12">
-          <CategorySidebar categories={categories} />
+      <main className="flex-1 w-full">
+        <div className="mx-auto max-w-[1200px] px-8 py-8 lg:px-16">
+          <div className="grid grid-cols-[208px_1fr] gap-12">
+            <CategorySidebar categories={categories} />
 
-          <div className="flex-1">
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <h1 className="text-xl font-semibold text-foreground">{title}</h1>
-              <SearchBar placeholder="Search prompts..." className="w-full sm:w-80" />
+            <div className="min-h-[600px]">
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <h1 className="text-lg font-semibold text-foreground whitespace-nowrap">{title}</h1>
+                <SearchBar placeholder="Search prompts..." className="w-72" />
+              </div>
+
+              {filteredPrompts.length === 0 ? (
+                <div className="pt-32">
+                  <p className="text-sm text-muted-foreground text-center">
+                    No prompts found. Try a different search or category.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {filteredPrompts.map((prompt) => (
+                    <PromptCard key={prompt.id} prompt={prompt} />
+                  ))}
+                </div>
+              )}
             </div>
-
-            {filteredPrompts.length === 0 ? (
-              <div className="py-16 text-center">
-                <p className="text-sm text-muted-foreground">No prompts found. Try a different search or category.</p>
-              </div>
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {filteredPrompts.map((prompt) => (
-                  <PromptCard key={prompt.id} prompt={prompt} />
-                ))}
-              </div>
-            )}
           </div>
         </div>
       </main>
+
+      <footer className="border-t border-border/40 py-6">
+        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
+          <p className="text-center text-xs text-muted-foreground/60">
+            This site is not directly affiliated with Vercel or v0.
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }

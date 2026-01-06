@@ -4,8 +4,7 @@ import { Suspense } from "react"
 import { Header } from "@/components/header"
 import { SearchBar } from "@/components/search-bar"
 import { PromptCard } from "@/components/prompt-card"
-import { CategoryPills } from "@/components/category-pills"
-import { prompts, categories } from "@/lib/data"
+import { prompts } from "@/lib/data"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
@@ -47,14 +46,13 @@ const fadeInVariants = {
 
 function HomeContent() {
   const featuredPrompts = prompts.slice(0, 8)
-  const typescriptPrompts = prompts.filter((p) => p.category === "typescript")
 
   return (
     <>
-      <motion.section className="pt-14 sm:pt-14" initial="hidden" animate="visible" variants={fadeInVariants}>
+      <motion.section className="pt-16 pb-8" initial="hidden" animate="visible" variants={fadeInVariants}>
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
           <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl inline-flex items-center justify-center flex-wrap gap-2">
+            <h1 className="text-balance text-2xl font-semibold tracking-tight text-foreground sm:text-3xl inline-flex items-center justify-center flex-wrap gap-2">
               Discover
               <svg
                 fill="currentColor"
@@ -74,15 +72,15 @@ function HomeContent() {
               </svg>
               prompts and more
             </h1>
-            <p className="mt-4 text-pretty text-sm text-muted-foreground sm:text-base">
+            <p className="mt-4 text-pretty text-sm text-muted-foreground">
               Explore a curated collection of prompts for v0 and level up your AI-assisted development workflow.
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              <Link href="/browse" className="underline underline-offset-4 hover:text-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
+              <Link href="/about" className="underline underline-offset-4 hover:text-foreground">
                 New to v0? Learn more here.
               </Link>
             </p>
-            <div className="mt-10">
+            <div className="mt-8">
               <SearchBar placeholder="Search for a prompt..." className="mx-auto max-w-xl" />
             </div>
           </div>
@@ -90,39 +88,15 @@ function HomeContent() {
       </motion.section>
 
       <motion.section
-        className="py-8"
+        className="py-6"
         initial="hidden"
         animate="visible"
-        variants={fadeInVariants}
+        variants={containerVariants}
         transition={{ delay: 0.2 }}
       >
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-medium text-foreground">Featured Categories</h2>
-            <Link
-              href="/browse"
-              className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              View all
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-          <div className="mt-5">
-            <CategoryPills categories={categories} />
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className="py-0"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        transition={{ delay: 0.3 }}
-      >
-        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
           <motion.div className="flex items-center justify-between" variants={itemVariants}>
-            <h2 className="text-sm font-medium text-foreground">Language Specialists</h2>
+            <h2 className="text-sm font-medium text-foreground">Featured Prompts</h2>
             <Link
               href="/browse"
               className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -131,36 +105,8 @@ function HomeContent() {
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </motion.div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {featuredPrompts.map((prompt, index) => (
-              <motion.div key={prompt.id} variants={itemVariants}>
-                <PromptCard prompt={prompt} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      <motion.section
-        className="py-8"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={containerVariants}
-      >
-        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
-          <motion.div className="flex items-center justify-between" variants={itemVariants}>
-            <h2 className="text-sm font-medium text-foreground">TypeScript</h2>
-            <Link
-              href="/browse?category=typescript"
-              className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              View all
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </Link>
-          </motion.div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {typescriptPrompts.slice(0, 8).map((prompt) => (
               <motion.div key={prompt.id} variants={itemVariants}>
                 <PromptCard prompt={prompt} />
               </motion.div>
@@ -184,13 +130,15 @@ export default function HomePage() {
       </main>
 
       <motion.footer
-        className="border-t border-border/50 py-8"
+        className="border-t border-border/40 py-6 mt-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.4 }}
       >
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
-          <p className="text-center text-xs text-muted-foreground">Built with v0</p>
+          <p className="text-center text-xs text-muted-foreground/60">
+            This site is not directly affiliated with Vercel or v0.
+          </p>
         </div>
       </motion.footer>
     </div>

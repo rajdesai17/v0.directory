@@ -12,6 +12,33 @@ export interface Prompt {
   createdAt: string
 }
 
+export interface MCP {
+  id: string
+  slug: string
+  name: string
+  description: string
+  icon: string
+  author: string
+  featured?: boolean
+  mcpUrl?: string
+  authType?: "none" | "bearer" | "headers" | "oauth"
+  docsUrl?: string
+}
+
+export interface Instruction {
+  id: string
+  slug: string
+  title: string
+  content: string
+  category: string
+  tags: string[]
+  author: {
+    name: string
+    avatar: string
+  }
+  createdAt: string
+}
+
 export interface Category {
   name: string
   slug: string
@@ -24,6 +51,258 @@ export const categories: Category[] = [
   { name: "Auth & Onboarding", slug: "auth-onboarding", count: 8 },
   { name: "Fintech", slug: "fintech", count: 6 },
   { name: "Marketing", slug: "marketing", count: 7 },
+]
+
+export const mcps: MCP[] = [
+  {
+    id: "1",
+    slug: "supabase",
+    name: "Supabase",
+    description:
+      "Connect to your Supabase projects: manage databases, auth, storage, and edge functions directly from v0.",
+    icon: "⚡",
+    author: "Supabase",
+    featured: true,
+    mcpUrl: "https://mcp.supabase.com",
+    authType: "bearer",
+    docsUrl: "https://supabase.com/docs/guides/ai/mcp",
+  },
+  {
+    id: "2",
+    slug: "vercel",
+    name: "Vercel",
+    description: "Deploy and manage your Vercel projects, configure domains, and monitor deployments seamlessly.",
+    icon: "▲",
+    author: "Vercel",
+    featured: true,
+    mcpUrl: "https://mcp.vercel.com",
+    authType: "oauth",
+    docsUrl: "https://vercel.com/docs/mcp",
+  },
+  {
+    id: "3",
+    slug: "stripe",
+    name: "Stripe",
+    description: "Integrate Stripe payments, manage subscriptions, and handle billing directly in your v0 projects.",
+    icon: "💳",
+    author: "Stripe",
+    featured: true,
+    mcpUrl: "https://mcp.stripe.com",
+    authType: "bearer",
+    docsUrl: "https://stripe.com/docs/mcp",
+  },
+  {
+    id: "4",
+    slug: "prisma",
+    name: "Prisma",
+    description:
+      "Database toolkit for TypeScript and Node.js. Generate type-safe database clients and manage migrations.",
+    icon: "◆",
+    author: "Prisma",
+    featured: true,
+    mcpUrl: "https://mcp.prisma.io",
+    authType: "bearer",
+    docsUrl: "https://prisma.io/docs/mcp",
+  },
+  {
+    id: "5",
+    slug: "openai",
+    name: "OpenAI",
+    description: "Access GPT models, embeddings, and AI capabilities directly in your applications.",
+    icon: "🤖",
+    author: "OpenAI",
+    mcpUrl: "https://mcp.openai.com",
+    authType: "bearer",
+    docsUrl: "https://platform.openai.com/docs/mcp",
+  },
+  {
+    id: "6",
+    slug: "resend",
+    name: "Resend",
+    description: "Modern email API for developers. Send transactional emails with React Email templates.",
+    icon: "✉️",
+    author: "Resend",
+    mcpUrl: "https://mcp.resend.com",
+    authType: "bearer",
+    docsUrl: "https://resend.com/docs/mcp",
+  },
+  {
+    id: "7",
+    slug: "clerk",
+    name: "Clerk",
+    description: "Complete user management with authentication, user profiles, and organization management.",
+    icon: "🔐",
+    author: "Clerk",
+    mcpUrl: "https://mcp.clerk.com",
+    authType: "oauth",
+    docsUrl: "https://clerk.com/docs/mcp",
+  },
+  {
+    id: "8",
+    slug: "upstash",
+    name: "Upstash",
+    description: "Serverless Redis and Kafka for modern applications. Perfect for rate limiting and caching.",
+    icon: "🔴",
+    author: "Upstash",
+    mcpUrl: "https://mcp.upstash.com",
+    authType: "bearer",
+    docsUrl: "https://upstash.com/docs/mcp",
+  },
+  {
+    id: "9",
+    slug: "planetscale",
+    name: "PlanetScale",
+    description: "Serverless MySQL platform with branching, non-blocking schema changes, and insights.",
+    icon: "🌍",
+    author: "PlanetScale",
+    mcpUrl: "https://mcp.planetscale.com",
+    authType: "bearer",
+    docsUrl: "https://planetscale.com/docs/mcp",
+  },
+  {
+    id: "10",
+    slug: "neon",
+    name: "Neon",
+    description: "Serverless Postgres with branching, autoscaling, and bottomless storage.",
+    icon: "🟢",
+    author: "Neon",
+    mcpUrl: "https://mcp.neon.tech",
+    authType: "bearer",
+    docsUrl: "https://neon.tech/docs/mcp",
+  },
+  {
+    id: "11",
+    slug: "convex",
+    name: "Convex",
+    description: "The fullstack TypeScript development platform. Realtime database with serverless functions.",
+    icon: "🔶",
+    author: "Convex",
+    mcpUrl: "https://mcp.convex.dev",
+    authType: "bearer",
+    docsUrl: "https://docs.convex.dev/mcp",
+  },
+  {
+    id: "12",
+    slug: "sanity",
+    name: "Sanity",
+    description: "Structured content platform with real-time collaboration and customizable editing.",
+    icon: "📝",
+    author: "Sanity",
+    mcpUrl: "https://mcp.sanity.io",
+    authType: "bearer",
+    docsUrl: "https://sanity.io/docs/mcp",
+  },
+]
+
+export const instructions: Instruction[] = [
+  {
+    id: "1",
+    slug: "clean-code-practices",
+    title: "Clean Code Practices",
+    content: `Always follow these clean code practices:
+
+- Write self-documenting code with clear variable and function names
+- Keep functions small and focused on a single responsibility
+- Use meaningful comments only when the code cannot explain itself
+- Follow consistent formatting and indentation
+- Avoid deep nesting - extract complex logic into separate functions
+- Write tests for critical functionality
+- Handle errors gracefully with proper error messages`,
+    category: "general",
+    tags: ["Clean Code", "Best Practices", "DRY"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-15",
+  },
+  {
+    id: "2",
+    slug: "typescript-strict-mode",
+    title: "TypeScript Strict Mode",
+    content: `Enable and follow TypeScript strict mode guidelines:
+
+- Always enable strict mode in tsconfig.json
+- Never use 'any' type - use 'unknown' and type guards instead
+- Define explicit return types for functions
+- Use discriminated unions for complex state
+- Leverage utility types (Partial, Required, Pick, Omit)
+- Implement proper null checking
+- Use const assertions for literal types`,
+    category: "typescript",
+    tags: ["TypeScript", "Type Safety", "Strict Mode"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-14",
+  },
+  {
+    id: "3",
+    slug: "react-component-patterns",
+    title: "React Component Patterns",
+    content: `Follow these React component patterns:
+
+- Prefer functional components with hooks
+- Use composition over inheritance
+- Implement proper prop typing with TypeScript
+- Memoize expensive computations with useMemo
+- Use useCallback for callback props
+- Implement error boundaries for graceful error handling
+- Keep components focused and reusable`,
+    category: "react",
+    tags: ["React", "Components", "Hooks"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-13",
+  },
+  {
+    id: "4",
+    slug: "accessibility-guidelines",
+    title: "Accessibility Guidelines",
+    content: `Ensure your applications are accessible:
+
+- Use semantic HTML elements
+- Provide alt text for all images
+- Ensure sufficient color contrast
+- Support keyboard navigation
+- Use ARIA attributes appropriately
+- Test with screen readers
+- Implement focus management for modals and dialogs`,
+    category: "accessibility",
+    tags: ["A11y", "WCAG", "Screen Readers"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-12",
+  },
+  {
+    id: "5",
+    slug: "performance-optimization",
+    title: "Performance Optimization",
+    content: `Optimize your application performance:
+
+- Implement code splitting and lazy loading
+- Optimize images with next/image
+- Use proper caching strategies
+- Minimize bundle size
+- Implement virtual scrolling for long lists
+- Use web workers for heavy computations
+- Monitor Core Web Vitals`,
+    category: "performance",
+    tags: ["Performance", "Optimization", "Core Web Vitals"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-11",
+  },
+  {
+    id: "6",
+    slug: "security-best-practices",
+    title: "Security Best Practices",
+    content: `Follow security best practices:
+
+- Validate and sanitize all user inputs
+- Use parameterized queries to prevent SQL injection
+- Implement proper authentication and authorization
+- Use HTTPS everywhere
+- Set secure HTTP headers
+- Protect against XSS and CSRF attacks
+- Keep dependencies updated`,
+    category: "security",
+    tags: ["Security", "XSS", "CSRF"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-10",
+  },
 ]
 
 export const prompts: Prompt[] = [
@@ -266,5 +545,27 @@ export function searchPrompts(query: string): Prompt[] {
       p.title.toLowerCase().includes(lowerQuery) ||
       p.content.toLowerCase().includes(lowerQuery) ||
       p.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
+  )
+}
+
+export function getMCPBySlug(slug: string): MCP | undefined {
+  return mcps.find((m) => m.slug === slug)
+}
+
+export function getFeaturedMCPs(): MCP[] {
+  return mcps.filter((m) => m.featured)
+}
+
+export function getInstructionBySlug(slug: string): Instruction | undefined {
+  return instructions.find((i) => i.slug === slug)
+}
+
+export function searchInstructions(query: string): Instruction[] {
+  const lowerQuery = query.toLowerCase()
+  return instructions.filter(
+    (i) =>
+      i.title.toLowerCase().includes(lowerQuery) ||
+      i.content.toLowerCase().includes(lowerQuery) ||
+      i.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
   )
 }

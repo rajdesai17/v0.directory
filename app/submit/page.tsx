@@ -62,10 +62,10 @@ export default function SubmitPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <main className="mx-auto max-w-[1200px] px-8 py-16 lg:px-16">
+      <main className="mx-auto max-w-[1200px] px-8 pt-16 pb-12 lg:px-16 flex-1">
         <div className="mx-auto max-w-xl">
           {submitted ? (
             <div className="text-center">
@@ -75,7 +75,7 @@ export default function SubmitPage() {
                 </svg>
               </div>
               <h1 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">Thanks for submitting!</h1>
-              <p className="text-[15px] text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 We'll review your prompt and publish it if it meets our guidelines.
               </p>
               {issueUrl && (
@@ -83,7 +83,7 @@ export default function SubmitPage() {
                   href={issueUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block text-[14px] text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                  className="mt-4 inline-block text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
                 >
                   View your submission on GitHub
                 </a>
@@ -91,22 +91,20 @@ export default function SubmitPage() {
             </div>
           ) : (
             <>
-              <div className="mb-10">
-                <h1 className="mb-3 text-2xl font-semibold tracking-tight text-foreground">Submit a prompt</h1>
-                <p className="text-[15px] leading-relaxed text-muted-foreground">
-                  Have a good v0 prompt? Share it with the community.
-                </p>
+              <div className="mb-8">
+                <h1 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">Submit a prompt</h1>
+                <p className="text-sm text-muted-foreground">Have a good v0 prompt? Share it with the community.</p>
               </div>
 
               {error && (
-                <div className="mb-6 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-[14px] text-red-400">
+                <div className="mb-6 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
                   {error}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <div>
-                  <label htmlFor="title" className="mb-2 block text-[13px] font-medium text-foreground">
+                  <label htmlFor="title" className="mb-2 block text-sm font-medium text-foreground">
                     Title
                   </label>
                   <input
@@ -115,13 +113,13 @@ export default function SubmitPage() {
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     placeholder="e.g., Next.js Dashboard Starter"
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="description" className="mb-2 block text-[13px] font-medium text-foreground">
+                  <label htmlFor="description" className="mb-2 block text-sm font-medium text-foreground">
                     Description
                   </label>
                   <input
@@ -130,13 +128,13 @@ export default function SubmitPage() {
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Brief description of what this prompt creates"
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="prompt" className="mb-2 block text-[13px] font-medium text-foreground">
+                  <label htmlFor="prompt" className="mb-2 block text-sm font-medium text-foreground">
                     Full Prompt
                   </label>
                   <textarea
@@ -145,13 +143,13 @@ export default function SubmitPage() {
                     onChange={(e) => setFormData({ ...formData, prompt: e.target.value })}
                     placeholder="Paste your complete prompt here..."
                     rows={8}
-                    className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-[13px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="category" className="mb-2 block text-[13px] font-medium text-foreground">
+                  <label htmlFor="category" className="mb-2 block text-sm font-medium text-foreground">
                     Category
                   </label>
                   <div className="relative">
@@ -159,7 +157,7 @@ export default function SubmitPage() {
                       id="category"
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-[14px] text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-sm text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                       required
                     >
                       <option value="" disabled>
@@ -177,7 +175,7 @@ export default function SubmitPage() {
 
                 {formData.category === "other" && (
                   <div>
-                    <label htmlFor="customCategory" className="mb-2 block text-[13px] font-medium text-foreground">
+                    <label htmlFor="customCategory" className="mb-2 block text-sm font-medium text-foreground">
                       Custom Category
                     </label>
                     <input
@@ -186,15 +184,15 @@ export default function SubmitPage() {
                       value={formData.customCategory}
                       onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
                       placeholder="e.g., E-commerce, Healthcare"
-                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                       required
                     />
                   </div>
                 )}
 
                 <div>
-                  <label htmlFor="v0Link" className="mb-2 block text-[13px] font-medium text-foreground">
-                    v0 Link <span className="text-muted-foreground">(optional)</span>
+                  <label htmlFor="v0Link" className="mb-2 block text-sm font-medium text-foreground">
+                    v0 Link <span className="text-muted-foreground font-normal">(optional)</span>
                   </label>
                   <input
                     type="url"
@@ -202,13 +200,13 @@ export default function SubmitPage() {
                     value={formData.v0Link}
                     onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
                     placeholder="https://v0.dev/t/..."
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="author" className="mb-2 block text-[13px] font-medium text-foreground">
-                    Your Name <span className="text-muted-foreground">(optional)</span>
+                  <label htmlFor="author" className="mb-2 block text-sm font-medium text-foreground">
+                    Your Name <span className="text-muted-foreground font-normal">(optional)</span>
                   </label>
                   <input
                     type="text"
@@ -216,7 +214,7 @@ export default function SubmitPage() {
                     value={formData.author}
                     onChange={(e) => setFormData({ ...formData, author: e.target.value })}
                     placeholder="How should we credit you?"
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                   />
                 </div>
 
@@ -224,11 +222,11 @@ export default function SubmitPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="h-10 w-full rounded-lg bg-foreground px-4 text-[14px] font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="h-10 w-full rounded-lg bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isSubmitting ? "Submitting..." : "Submit Prompt"}
                   </button>
-                  <p className="mt-3 text-center text-[12px] text-muted-foreground">
+                  <p className="mt-3 text-center text-xs text-muted-foreground">
                     Prompts are reviewed before publishing.
                   </p>
                 </div>
@@ -237,6 +235,14 @@ export default function SubmitPage() {
           )}
         </div>
       </main>
+
+      <footer className="border-t border-border/40 py-6">
+        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
+          <p className="text-center text-xs text-muted-foreground/60">
+            This site is not directly affiliated with Vercel or v0.
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }

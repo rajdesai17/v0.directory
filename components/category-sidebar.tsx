@@ -30,10 +30,13 @@ function CategorySidebarContent({ categories }: CategorySidebarProps) {
         </Link>
       ))}
       <div className="pt-6">
-        <button className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2.5 text-[13px] text-foreground transition-colors hover:bg-secondary">
+        <Link
+          href="/submit"
+          className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2.5 text-[13px] text-foreground transition-colors hover:bg-secondary"
+        >
           Submit
           <span className="text-muted-foreground">+</span>
-        </button>
+        </Link>
       </div>
     </nav>
   )
@@ -41,7 +44,7 @@ function CategorySidebarContent({ categories }: CategorySidebarProps) {
 
 export function CategorySidebar({ categories }: CategorySidebarProps) {
   return (
-    <aside className="hidden w-52 shrink-0 md:block">
+    <aside className="hidden md:block">
       <Suspense fallback={<div className="sticky top-24 space-y-0.5" />}>
         <CategorySidebarContent categories={categories} />
       </Suspense>

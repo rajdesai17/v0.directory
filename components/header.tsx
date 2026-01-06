@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Github, Search, ChevronDown, Menu, X } from "lucide-react"
+import { Github, ChevronDown, Menu, X } from "lucide-react"
 
 const categories = [
   { name: "Dashboards", slug: "dashboards" },
@@ -17,8 +17,6 @@ const categories = [
 ]
 
 export function Header() {
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -36,7 +34,21 @@ export function Header() {
             href="/browse"
             className="rounded-md px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
-            Browse
+            Prompts
+          </Link>
+
+          <Link
+            href="/mcps"
+            className="rounded-md px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            MCPs
+          </Link>
+
+          <Link
+            href="/instructions"
+            className="rounded-md px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            Instructions
           </Link>
 
           {/* Categories Dropdown */}
@@ -92,39 +104,6 @@ export function Header() {
 
         {/* Right - Utility */}
         <div className="flex items-center gap-1">
-          {/* Search */}
-          <div className="relative">
-            {searchOpen ? (
-              <div className="flex items-center">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search prompts..."
-                  className="h-8 w-48 rounded-md border border-border bg-muted/50 px-3 text-[13px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                  autoFocus
-                  onBlur={() => {
-                    if (!searchQuery) setSearchOpen(false)
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") {
-                      setSearchOpen(false)
-                      setSearchQuery("")
-                    }
-                  }}
-                />
-              </div>
-            ) : (
-              <button
-                onClick={() => setSearchOpen(true)}
-                className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <Search className="h-4 w-4" />
-              </button>
-            )}
-          </div>
-
-          {/* GitHub */}
           <Link
             href="https://github.com"
             target="_blank"
@@ -153,7 +132,21 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
-              Browse
+              Prompts
+            </Link>
+            <Link
+              href="/mcps"
+              onClick={() => setMobileMenuOpen(false)}
+              className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              MCPs
+            </Link>
+            <Link
+              href="/instructions"
+              onClick={() => setMobileMenuOpen(false)}
+              className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              Instructions
             </Link>
             <div className="px-3 py-2">
               <span className="text-[12px] font-medium uppercase tracking-wider text-muted-foreground/60">
