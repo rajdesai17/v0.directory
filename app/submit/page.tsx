@@ -6,7 +6,10 @@ import { Header } from "@/components/header"
 import { categories } from "@/lib/data"
 import { ChevronDown } from "lucide-react"
 
+type SubmissionType = "prompt" | "mcp" | "instruction"
+
 export default function SubmitPage() {
+  const [submissionType, setSubmissionType] = useState<SubmissionType>("prompt")
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -15,6 +18,9 @@ export default function SubmitPage() {
     customCategory: "",
     v0Link: "",
     author: "",
+    mcpUrl: "",
+    authType: "none" as "none" | "bearer" | "headers" | "oauth",
+    instructionContent: "",
   })
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,7 +37,7 @@ export default function SubmitPage() {
     setIsSubmitting(true)
     setError(null)
 
-    if (formData.category === "other" && !formData.customCategory.trim()) {
+    if (submissionType === "prompt" && formData.category === "other" && !formData.customCategory.trim()) {
       setError("Please specify a category")
       setIsSubmitting(false)
       return
@@ -43,7 +49,7 @@ export default function SubmitPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, submissionType }),
       })
 
       const data = await res.json()
@@ -58,6 +64,34 @@ export default function SubmitPage() {
       setError("Network error. Please try again.")
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  const handleTypeChange = (type: SubmissionType) => {
+    setSubmissionType(type)
+    setFormData({
+      title: "",
+      description: "",
+      prompt: "",
+      category: "",
+      customCategory: "",
+      v0Link: "",
+      author: "",
+      mcpUrl: "",
+      authType: "none",
+      instructionContent: "",
+    })
+    setError(null)
+  }
+
+  const getTypeLabel = () => {
+    switch (submissionType) {
+      case "mcp":
+        return "MCP"
+      case "instruction":
+        return "Instruction"
+      default:
+        return "Prompt"
     }
   }
 
@@ -76,7 +110,7 @@ export default function SubmitPage() {
               </div>
               <h1 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">Thanks for submitting!</h1>
               <p className="text-sm text-muted-foreground">
-                We'll review your prompt and publish it if it meets our guidelines.
+                We'll review your {getTypeLabel().toLowerCase()} and publish it if it meets our guidelines.
               </p>
               {issueUrl && (
                 <a
@@ -92,8 +126,27 @@ export default function SubmitPage() {
           ) : (
             <>
               <div className="mb-8">
-                <h1 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">Submit a prompt</h1>
-                <p className="text-sm text-muted-foreground">Have a good v0 prompt? Share it with the community.</p>
+                <h1 className="mb-2 text-2xl font-semibold tracking-tight text-foreground">Submit to v0.directory</h1>
+                <p className="text-sm text-muted-foreground">
+                  Share prompts, MCPs, or instructions with the community.
+                </p>
+              </div>
+
+              <div className="mb-6 flex gap-2">
+                {(["prompt", "mcp", "instruction"] as const).map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => handleTypeChange(type)}
+                    className={`h-9 px-4 rounded-lg text-sm font-medium transition-colors ${
+                      submissionType === type
+                        ? "bg-foreground text-background"
+                        : "bg-muted/50 text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {type === "prompt" ? "Prompt" : type === "mcp" ? "MCP" : "Instruction"}
+                  </button>
+                ))}
               </div>
 
               {error && (
@@ -103,16 +156,27 @@ export default function SubmitPage() {
               )}
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                {/* Common fields: Title & Description */}
                 <div>
                   <label htmlFor="title" className="mb-2 block text-sm font-medium text-foreground">
-                    Title
+                    {submissionType === "mcp"
+                      ? "MCP Name"
+                      : submissionType === "instruction"
+                        ? "Instruction Title"
+                        : "Title"}
                   </label>
                   <input
                     type="text"
                     id="title"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="e.g., Next.js Dashboard Starter"
+                    placeholder={
+                      submissionType === "mcp"
+                        ? "e.g., GitHub MCP Server"
+                        : submissionType === "instruction"
+                          ? "e.g., Plan Mode"
+                          : "e.g., Next.js Dashboard Starter"
+                    }
                     className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     required
                   />
@@ -127,83 +191,164 @@ export default function SubmitPage() {
                     id="description"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Brief description of what this prompt creates"
+                    placeholder={
+                      submissionType === "mcp"
+                        ? "What does this MCP do?"
+                        : submissionType === "instruction"
+                          ? "What does this instruction do?"
+                          : "Brief description of what this prompt creates"
+                    }
                     className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     required
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="prompt" className="mb-2 block text-sm font-medium text-foreground">
-                    Full Prompt
-                  </label>
-                  <textarea
-                    id="prompt"
-                    value={formData.prompt}
-                    onChange={(e) => setFormData({ ...formData, prompt: e.target.value })}
-                    placeholder="Paste your complete prompt here..."
-                    rows={8}
-                    className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                    required
-                  />
-                </div>
+                {submissionType === "prompt" && (
+                  <>
+                    <div>
+                      <label htmlFor="prompt" className="mb-2 block text-sm font-medium text-foreground">
+                        Full Prompt
+                      </label>
+                      <textarea
+                        id="prompt"
+                        value={formData.prompt}
+                        onChange={(e) => setFormData({ ...formData, prompt: e.target.value })}
+                        placeholder="Paste your complete prompt here..."
+                        rows={8}
+                        className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                        required
+                      />
+                    </div>
 
-                <div>
-                  <label htmlFor="category" className="mb-2 block text-sm font-medium text-foreground">
-                    Category
-                  </label>
-                  <div className="relative">
-                    <select
-                      id="category"
-                      value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-sm text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select a category
-                      </option>
-                      {categoryOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  </div>
-                </div>
+                    <div>
+                      <label htmlFor="category" className="mb-2 block text-sm font-medium text-foreground">
+                        Category
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="category"
+                          value={formData.category}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                          className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-sm text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                          required
+                        >
+                          <option value="" disabled>
+                            Select a category
+                          </option>
+                          {categoryOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      </div>
+                    </div>
 
-                {formData.category === "other" && (
+                    {formData.category === "other" && (
+                      <div>
+                        <label htmlFor="customCategory" className="mb-2 block text-sm font-medium text-foreground">
+                          Custom Category
+                        </label>
+                        <input
+                          type="text"
+                          id="customCategory"
+                          value={formData.customCategory}
+                          onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
+                          placeholder="e.g., E-commerce, Healthcare"
+                          className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                          required
+                        />
+                      </div>
+                    )}
+
+                    <div>
+                      <label htmlFor="v0Link" className="mb-2 block text-sm font-medium text-foreground">
+                        v0 Link <span className="text-muted-foreground font-normal">(optional)</span>
+                      </label>
+                      <input
+                        type="url"
+                        id="v0Link"
+                        value={formData.v0Link}
+                        onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
+                        placeholder="https://v0.dev/t/..."
+                        className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {submissionType === "mcp" && (
+                  <>
+                    <div>
+                      <label htmlFor="mcpUrl" className="mb-2 block text-sm font-medium text-foreground">
+                        MCP URL
+                      </label>
+                      <input
+                        type="url"
+                        id="mcpUrl"
+                        value={formData.mcpUrl}
+                        onChange={(e) => setFormData({ ...formData, mcpUrl: e.target.value })}
+                        placeholder="https://mcp.example.com/mcp"
+                        className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-foreground">Authentication Type</label>
+                      <div className="flex gap-2">
+                        {(["none", "bearer", "headers", "oauth"] as const).map((auth) => (
+                          <button
+                            key={auth}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, authType: auth })}
+                            className={`h-9 px-4 rounded-lg text-sm transition-colors ${
+                              formData.authType === auth
+                                ? "bg-muted text-foreground"
+                                : "bg-muted/30 text-muted-foreground hover:text-foreground"
+                            }`}
+                          >
+                            {auth.charAt(0).toUpperCase() + auth.slice(1)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="v0Link" className="mb-2 block text-sm font-medium text-foreground">
+                        Documentation URL <span className="text-muted-foreground font-normal">(optional)</span>
+                      </label>
+                      <input
+                        type="url"
+                        id="v0Link"
+                        value={formData.v0Link}
+                        onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
+                        placeholder="https://docs.example.com/mcp"
+                        className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {submissionType === "instruction" && (
                   <div>
-                    <label htmlFor="customCategory" className="mb-2 block text-sm font-medium text-foreground">
-                      Custom Category
+                    <label htmlFor="instructionContent" className="mb-2 block text-sm font-medium text-foreground">
+                      Instruction Content
                     </label>
-                    <input
-                      type="text"
-                      id="customCategory"
-                      value={formData.customCategory}
-                      onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
-                      placeholder="e.g., E-commerce, Healthcare"
-                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                    <textarea
+                      id="instructionContent"
+                      value={formData.instructionContent}
+                      onChange={(e) => setFormData({ ...formData, instructionContent: e.target.value })}
+                      placeholder="Write the instruction that should be added to v0's custom instructions..."
+                      rows={8}
+                      className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                       required
                     />
                   </div>
                 )}
 
-                <div>
-                  <label htmlFor="v0Link" className="mb-2 block text-sm font-medium text-foreground">
-                    v0 Link <span className="text-muted-foreground font-normal">(optional)</span>
-                  </label>
-                  <input
-                    type="url"
-                    id="v0Link"
-                    value={formData.v0Link}
-                    onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
-                    placeholder="https://v0.dev/t/..."
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                  />
-                </div>
-
+                {/* Common field: Author */}
                 <div>
                   <label htmlFor="author" className="mb-2 block text-sm font-medium text-foreground">
                     Your Name <span className="text-muted-foreground font-normal">(optional)</span>
@@ -224,10 +369,10 @@ export default function SubmitPage() {
                     disabled={isSubmitting}
                     className="h-10 w-full rounded-lg bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {isSubmitting ? "Submitting..." : "Submit Prompt"}
+                    {isSubmitting ? "Submitting..." : `Submit ${getTypeLabel()}`}
                   </button>
                   <p className="mt-3 text-center text-xs text-muted-foreground">
-                    Prompts are reviewed before publishing.
+                    Submissions are reviewed before publishing.
                   </p>
                 </div>
               </form>
