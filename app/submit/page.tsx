@@ -1,24 +1,64 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Header } from "@/components/header"
+import { categories } from "@/lib/data"
+import { ChevronDown } from "lucide-react"
 
 export default function SubmitPage() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     prompt: "",
-    tags: "",
+    category: "",
+    customCategory: "",
     v0Link: "",
+    author: "",
   })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [issueUrl, setIssueUrl] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const categoryOptions = [
+    ...categories.map((c) => ({ value: c.slug, label: c.name })),
+    { value: "other", label: "Other (specify)" },
+  ]
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // For MVP, just show success state
-    setSubmitted(true)
+    setIsSubmitting(true)
+    setError(null)
+
+    if (formData.category === "other" && !formData.customCategory.trim()) {
+      setError("Please specify a category")
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await res.json()
+
+      if (data.success) {
+        setSubmitted(true)
+        setIssueUrl(data.issueUrl)
+      } else {
+        setError(data.error || "Failed to submit. Please try again.")
+      }
+    } catch (err) {
+      setError("Network error. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -38,6 +78,16 @@ export default function SubmitPage() {
               <p className="text-[15px] text-muted-foreground">
                 We'll review your prompt and publish it if it meets our guidelines.
               </p>
+              {issueUrl && (
+                <a
+                  href={issueUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block text-[14px] text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                >
+                  View your submission on GitHub
+                </a>
+              )}
             </div>
           ) : (
             <>
@@ -47,6 +97,12 @@ export default function SubmitPage() {
                   Have a good v0 prompt? Share it with the community.
                 </p>
               </div>
+
+              {error && (
+                <div className="mb-6 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-[14px] text-red-400">
+                  {error}
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div>
@@ -95,18 +151,46 @@ export default function SubmitPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="tags" className="mb-2 block text-[13px] font-medium text-foreground">
-                    Tags
+                  <label htmlFor="category" className="mb-2 block text-[13px] font-medium text-foreground">
+                    Category
                   </label>
-                  <input
-                    type="text"
-                    id="tags"
-                    value={formData.tags}
-                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                    placeholder="e.g., dashboard, analytics, charts (comma separated)"
-                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
-                  />
+                  <div className="relative">
+                    <select
+                      id="category"
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-[14px] text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select a category
+                      </option>
+                      {categoryOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  </div>
                 </div>
+
+                {formData.category === "other" && (
+                  <div>
+                    <label htmlFor="customCategory" className="mb-2 block text-[13px] font-medium text-foreground">
+                      Custom Category
+                    </label>
+                    <input
+                      type="text"
+                      id="customCategory"
+                      value={formData.customCategory}
+                      onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
+                      placeholder="e.g., E-commerce, Healthcare"
+                      className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                      required
+                    />
+                  </div>
+                )}
 
                 <div>
                   <label htmlFor="v0Link" className="mb-2 block text-[13px] font-medium text-foreground">
@@ -122,12 +206,27 @@ export default function SubmitPage() {
                   />
                 </div>
 
+                <div>
+                  <label htmlFor="author" className="mb-2 block text-[13px] font-medium text-foreground">
+                    Your Name <span className="text-muted-foreground">(optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="author"
+                    value={formData.author}
+                    onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                    placeholder="How should we credit you?"
+                    className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-[14px] text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
+                  />
+                </div>
+
                 <div className="mt-2">
                   <button
                     type="submit"
-                    className="h-10 w-full rounded-lg bg-foreground px-4 text-[14px] font-medium text-background transition-opacity hover:opacity-90"
+                    disabled={isSubmitting}
+                    className="h-10 w-full rounded-lg bg-foreground px-4 text-[14px] font-medium text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Submit Prompt
+                    {isSubmitting ? "Submitting..." : "Submit Prompt"}
                   </button>
                   <p className="mt-3 text-center text-[12px] text-muted-foreground">
                     Prompts are reviewed before publishing.

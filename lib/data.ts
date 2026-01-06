@@ -22,12 +22,8 @@ export const categories: Category[] = [
   { name: "Dashboards", slug: "dashboards", count: 12 },
   { name: "Landing Pages", slug: "landing-pages", count: 18 },
   { name: "Auth & Onboarding", slug: "auth-onboarding", count: 8 },
-  { name: "AI / ML", slug: "ai-ml", count: 15 },
   { name: "Fintech", slug: "fintech", count: 6 },
-  { name: "Dev Tools", slug: "dev-tools", count: 14 },
-  { name: "Mobile UI", slug: "mobile-ui", count: 9 },
   { name: "Marketing", slug: "marketing", count: 7 },
-  { name: "Misc", slug: "misc", count: 11 },
 ]
 
 export const prompts: Prompt[] = [
