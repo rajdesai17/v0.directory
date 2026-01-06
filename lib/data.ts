@@ -354,12 +354,162 @@ Pricing: Pro Tier with "Border Beam" animation. Smooth sliding toggle for billin
 Framework: Next.js (App Router), Tailwind CSS. Animations: Framer Motion, GSAP. Icons: Lucide React (stroke width: 1.5px). Optimization: next/font for local fonts, zero Layout Shift.`,
     category: "landing-pages",
     tags: ["Next.js", "Tailwind CSS", "Framer Motion", "SaaS", "Dark Theme"],
-    author: { name: "Raj", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-16",
+    author: { name: "Raj", avatar: "" },
+    createdAt: "2024-01-20",
     previewUrl: "https://v0.link/6qUhlbF",
   },
   {
     id: "2",
+    slug: "agency-landing-page",
+    title: "Agency Landing Page",
+    content: `Build a modern, premium agency landing page with the following specifications:
+
+## Overall Theme & Style
+- Dark blue gradient background (#070b1a to #0d1530)
+- Animated star field particles in the background
+- Glass morphism effects (backdrop-blur, semi-transparent backgrounds)
+- Blue accent color (#3b82f6) for highlights, buttons, and interactive elements
+- Clean, elegant typography with light font weights and tight tracking
+- Smooth micro-animations and hover effects throughout
+
+## Color Palette (5 colors max)
+- Primary background: Deep navy (#070b1a, #0d1530)
+- Accent: Blue-500 (#3b82f6)
+- Text primary: White (#ffffff)
+- Text secondary: Gray-400 (#9ca3af)
+- Success/highlight: Green-400 (#4ade80) for stats
+
+## Typography
+- Headlines: font-light, tracking-tight, text-4xl to text-6xl
+- Use italic on key accent words in headlines
+- Body text: text-gray-300/400, leading-relaxed
+- Buttons/labels: font-medium, text-sm
+
+## Sections to Include
+
+### 1. Header/Navigation
+- Logo on left (icon + text)
+- Centered navigation links (Services, Work, About, Contact)
+- Right side: Login button (outline) + Language selector
+- Semi-transparent background with backdrop blur
+- Sticky positioning
+
+### 2. Hero Section
+- Version badge (e.g., "New - Platform 2.0")
+- Large headline with italic accent word
+- Subtext describing value proposition
+- Two CTA buttons: Primary (filled) + Secondary (outline with icon)
+- Animated star background
+- Below: Floating bento grid dashboard cards
+
+### 3. Bento Dashboard Cards (in hero)
+Layout: 3 columns, middle column elevated (-translate-y)
+Each card has:
+- Outer container: glass effect (bg-white/10, backdrop-blur-xl, border-white/20)
+- Inner card: white background, rounded corners, smaller than outer
+- Creates "stacked cards" visual effect
+
+Cards to include:
+- User Signups: Large number + percentage badge
+- Members: List with avatars, dropdown filter
+- Balance: Amount + chart visualization
+- Data Analysis: Title + "View more" button + bar chart
+- Monthly Engagement: Title + dropdown + bar chart
+
+### 4. Services/Process Section
+- Use animated feature steps component
+- Left side: Clickable step indicators with progress line
+- Right side: Auto-scrolling images (4-5 second interval)
+- Steps: Discovery, Design, Development, Launch
+- Active step highlighted in blue
+
+### 5. About Section
+- Centered layout with badge
+- Large headline with italic accent
+- Animated counting stats (3-4 metrics)
+- Stats in glass morphism cards with hover effects
+- Highlight badges for key achievements
+- CTA button with arrow animation
+
+### 6. Testimonials Section
+- Section badge + headline
+- 3-column grid of testimonial cards
+- Each card: glass effect, quote, author avatar, name, role
+- Star ratings
+- Hover scale effect
+
+### 7. CTA Section
+- Glass morphism container with gradient border
+- Pulsing background blur effect
+- Centered headline with italic accent
+- Subtext
+- Primary CTA button
+
+### 8. Footer
+- 4-column layout (Brand, Services, Company, Connect)
+- Logo + description in first column
+- Link lists in middle columns
+- Social icons in last column
+- Bottom bar: copyright + legal links
+- Semi-transparent background
+
+## Animation Details
+- Use CSS transitions (duration-300, duration-500)
+- Hover effects: scale, translateY, opacity changes
+- Number counters: animate from 0 to final value
+- Staggered fade-ins with Intersection Observer
+- Floating/pulsing background elements
+- Button arrow animations on hover
+
+## Key CSS Classes Pattern
+/* Glass morphism outer card */
+.glass-outer {
+  @apply rounded-3xl border border-white/20 bg-white/10 p-2 backdrop-blur-xl shadow-lg shadow-blue-500/10;
+}
+
+/* White inner card */
+.glass-inner {
+  @apply rounded-2xl bg-white p-5;
+}
+
+/* Section badge */
+.badge {
+  @apply inline-block rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-400;
+}
+
+/* Primary button */
+.btn-primary {
+  @apply flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-gray-900 transition-all hover:bg-gray-100 hover:scale-105;
+}
+
+/* Headline style */
+.headline {
+  @apply text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white text-pretty;
+}
+
+## Component Structure
+app/
+  page.tsx (imports all sections)
+  layout.tsx (fonts, metadata)
+  globals.css (theme tokens)
+components/
+  header.tsx
+  hero-section.tsx
+  dashboard-cards.tsx
+  star-background.tsx
+  services-section.tsx
+  ui/feature-section.tsx
+  about-section.tsx
+  testimonials-section.tsx
+  cta-section.tsx
+  footer.tsx`,
+    category: "landing-pages",
+    tags: ["Agency", "Glassmorphism", "Animations", "Bento Grid", "Dark Theme"],
+    author: { name: "Raj", avatar: "" },
+    createdAt: "2024-01-21",
+  },
+  {
+    id: "3",
     slug: "startup-landing-page",
     title: "Y Combinator Style Startup Landing",
     content: `Create a clean, conversion-focused startup landing page inspired by Y Combinator portfolio companies.
@@ -392,7 +542,7 @@ Technical Specs:
     createdAt: "2024-01-15",
   },
   {
-    id: "3",
+    id: "4",
     slug: "product-launch-landing",
     title: "Apple-Style Product Launch Page",
     content: `Create a premium product launch landing page inspired by Apple's product pages.
@@ -429,7 +579,7 @@ Technical Requirements:
     createdAt: "2024-01-14",
   },
   {
-    id: "4",
+    id: "5",
     slug: "ai-product-landing",
     title: "AI Product Landing with Gradient Mesh",
     content: `Create a futuristic AI product landing page with dynamic gradient mesh backgrounds.
@@ -468,7 +618,7 @@ Code Requirements:
 
   // ========== DASHBOARDS ==========
   {
-    id: "5",
+    id: "6",
     slug: "analytics-dashboard",
     title: "Real-Time Analytics Dashboard",
     content: `Create a comprehensive analytics dashboard with real-time data visualization.
@@ -507,7 +657,7 @@ Technical Stack:
     createdAt: "2024-01-12",
   },
   {
-    id: "6",
+    id: "7",
     slug: "admin-dashboard",
     title: "SaaS Admin Dashboard",
     content: `Build a full-featured admin dashboard for SaaS applications.
@@ -547,7 +697,7 @@ Technical Implementation:
     createdAt: "2024-01-11",
   },
   {
-    id: "7",
+    id: "8",
     slug: "finance-dashboard",
     title: "Personal Finance Dashboard",
     content: `Create a beautiful personal finance tracking dashboard.
@@ -584,7 +734,7 @@ Data Handling:
     createdAt: "2024-01-10",
   },
   {
-    id: "8",
+    id: "9",
     slug: "project-management-dashboard",
     title: "Notion-Style Project Dashboard",
     content: `Build a project management dashboard inspired by Notion and Linear.
@@ -625,7 +775,7 @@ Design Elements:
 
   // ========== COMPONENTS ==========
   {
-    id: "9",
+    id: "10",
     slug: "animated-pricing-table",
     title: "Animated Pricing Table Component",
     content: `Create a stunning animated pricing table component.
@@ -662,7 +812,7 @@ Code Structure:
     createdAt: "2024-01-08",
   },
   {
-    id: "10",
+    id: "11",
     slug: "file-upload-component",
     title: "Drag & Drop File Upload",
     content: `Build a polished drag-and-drop file upload component.
@@ -697,7 +847,7 @@ Code Requirements:
     createdAt: "2024-01-07",
   },
   {
-    id: "11",
+    id: "12",
     slug: "command-palette",
     title: "Command Palette (CMD+K)",
     content: `Create a Spotlight/Linear-style command palette.
@@ -736,7 +886,7 @@ Technical Implementation:
     createdAt: "2024-01-06",
   },
   {
-    id: "12",
+    id: "13",
     slug: "notification-system",
     title: "Toast Notification System",
     content: `Build a complete toast notification system.
@@ -787,7 +937,7 @@ Implementation:
 
   // ========== E-COMMERCE ==========
   {
-    id: "13",
+    id: "14",
     slug: "product-page",
     title: "Premium Product Detail Page",
     content: `Create a high-converting product detail page for e-commerce.
@@ -827,7 +977,7 @@ Technical Requirements:
     createdAt: "2024-01-04",
   },
   {
-    id: "14",
+    id: "15",
     slug: "shopping-cart",
     title: "Animated Shopping Cart",
     content: `Build a delightful shopping cart experience.
@@ -866,7 +1016,7 @@ Cart Icon:
     createdAt: "2024-01-03",
   },
   {
-    id: "15",
+    id: "16",
     slug: "checkout-flow",
     title: "Multi-Step Checkout Flow",
     content: `Create a conversion-optimized checkout flow.
@@ -903,7 +1053,7 @@ Technical Implementation:
     createdAt: "2024-01-02",
   },
   {
-    id: "16",
+    id: "17",
     slug: "product-catalog",
     title: "Filterable Product Catalog",
     content: `Build a product catalog with advanced filtering.
@@ -946,7 +1096,7 @@ URL State:
 
   // ========== PORTFOLIO ==========
   {
-    id: "17",
+    id: "18",
     slug: "developer-portfolio",
     title: "Developer Portfolio with Terminal Theme",
     content: `Create a unique developer portfolio with terminal/code aesthetics.
@@ -982,7 +1132,7 @@ Easter Eggs:
     createdAt: "2023-12-30",
   },
   {
-    id: "18",
+    id: "19",
     slug: "designer-portfolio",
     title: "Minimal Designer Portfolio",
     content: `Create a clean, minimal portfolio for designers.
@@ -1019,7 +1169,7 @@ Hover Effects:
     createdAt: "2023-12-29",
   },
   {
-    id: "19",
+    id: "20",
     slug: "creative-portfolio",
     title: "3D Interactive Portfolio",
     content: `Build an immersive 3D portfolio experience.
@@ -1056,7 +1206,7 @@ Interactive Features:
 
   // ========== AUTHENTICATION ==========
   {
-    id: "20",
+    id: "21",
     slug: "auth-pages-modern",
     title: "Modern Auth Pages Set",
     content: `Create a complete set of authentication pages.
@@ -1095,7 +1245,7 @@ Animations:
     createdAt: "2023-12-27",
   },
   {
-    id: "21",
+    id: "22",
     slug: "glassmorphic-login",
     title: "Glassmorphic Login Page",
     content: `Create a stunning glassmorphic login experience.
@@ -1136,7 +1286,7 @@ Mobile Optimization:
     createdAt: "2023-12-26",
   },
   {
-    id: "22",
+    id: "23",
     slug: "onboarding-flow",
     title: "User Onboarding Flow",
     content: `Create an engaging multi-step onboarding experience.
@@ -1176,7 +1326,7 @@ Animations:
 
   // ========== ANIMATIONS ==========
   {
-    id: "23",
+    id: "24",
     slug: "page-transitions",
     title: "Smooth Page Transitions",
     content: `Implement beautiful page transitions in Next.js.
@@ -1217,7 +1367,7 @@ Performance:
     createdAt: "2023-12-24",
   },
   {
-    id: "24",
+    id: "25",
     slug: "scroll-animations",
     title: "Advanced Scroll Animations",
     content: `Create scroll-triggered animations library.
@@ -1254,7 +1404,7 @@ Performance Tips:
     createdAt: "2023-12-23",
   },
   {
-    id: "25",
+    id: "26",
     slug: "micro-interactions",
     title: "Delightful Micro-Interactions",
     content: `Create a library of micro-interactions for UI polish.
@@ -1299,7 +1449,7 @@ Implementation Patterns:
 
   // ========== APPS ==========
   {
-    id: "26",
+    id: "27",
     slug: "chat-application",
     title: "Real-Time Chat Application",
     content: `Build a modern real-time chat application.
@@ -1341,7 +1491,7 @@ Technical Stack:
     createdAt: "2023-12-21",
   },
   {
-    id: "27",
+    id: "28",
     slug: "todo-app-advanced",
     title: "Advanced Todo App with Superpowers",
     content: `Create a feature-rich todo application beyond the basics.
@@ -1382,7 +1532,7 @@ UI/UX:
     createdAt: "2023-12-20",
   },
   {
-    id: "28",
+    id: "29",
     slug: "note-taking-app",
     title: "Notion-Style Note Taking App",
     content: `Build a block-based note-taking application.
@@ -1424,7 +1574,7 @@ Collaboration:
     createdAt: "2023-12-19",
   },
   {
-    id: "29",
+    id: "30",
     slug: "weather-app",
     title: "Beautiful Weather App",
     content: `Create a visually stunning weather application.
