@@ -136,6 +136,10 @@ function HomeContent() {
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
           <motion.div className="text-center mb-6" variants={itemVariants}>
             <h2 className="text-sm font-medium text-foreground">Contributors</h2>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Want to be featured here? Submit a high-quality v0 prompt. Approved contributions are credited
+              automatically.
+            </p>
           </motion.div>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {skeletonsBefore.map((slot) => (
