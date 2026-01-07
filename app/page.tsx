@@ -56,7 +56,17 @@ const skeletonsBefore = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-bef
 const skeletonsAfter = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-after-${i + 1}` }))
 
 function HomeContent() {
-  const featuredPrompts = prompts.slice(0, 8)
+  const featuredSlugs = [
+    "premium-saas-landing-page",
+    "agency-landing-page",
+    "startup-landing-page",
+    "product-launch-landing",
+    "ai-product-landing",
+    "analytics-dashboard",
+    "brutalist-void-portfolio", // Replaced admin-dashboard
+    "finance-dashboard",
+  ]
+  const featuredPrompts = featuredSlugs.map((slug) => prompts.find((p) => p.slug === slug)).filter(Boolean)
 
   return (
     <>

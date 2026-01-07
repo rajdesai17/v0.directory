@@ -1096,8 +1096,8 @@ URL State:
 
   // ========== PORTFOLIO ==========
   {
-    id: "18",
-    slug: "developer-portfolio",
+    id: "17",
+    slug: "terminal-portfolio",
     title: "Developer Portfolio with Terminal Theme",
     content: `Create a unique developer portfolio with terminal/code aesthetics.
 
@@ -1133,7 +1133,7 @@ Easter Eggs:
   },
   {
     id: "19",
-    slug: "designer-portfolio",
+    slug: "minimal-design-portfolio",
     title: "Minimal Designer Portfolio",
     content: `Create a clean, minimal portfolio for designers.
 
@@ -1202,6 +1202,72 @@ Interactive Features:
     tags: ["3D", "Three.js", "Interactive", "Creative"],
     author: { name: "v0 Community", avatar: "/diverse-group-avatars.png" },
     createdAt: "2023-12-28",
+  },
+  {
+    id: "32",
+    slug: "brutalist-void-portfolio",
+    title: "Brutalist Void Portfolio Template",
+    content: `Role: Lead Creative Developer & WebGL Artist (Awwwards Jury Member level).
+
+Goal: Build a portfolio for an AI-Native Product Builder that feels organic, sentient, and highly engineered. Avoid generic SaaS aesthetics. The site must feel "alive."
+
+Tech Stack:
+- Next.js / React
+- Tailwind CSS (for layout structure)
+- React Three Fiber (R3F) & Drei (for the hero element)
+- Framer Motion (complex orchestration)
+- Lenis Scroll (for buttery smooth inertia scrolling)
+- Lucide React (minimalist icons)
+
+Design Philosophy (The "Human" Touch):
+- Grain & Texture: Overlay a subtle CSS noise texture (opacity 0.05) over the entire screen to kill the "digital flatness."
+- Typography: Mix a massive, architectural serif (like 'Playfair Display' or 'Editorial New') for headers with a technical monospace (like 'Geist Mono') for data.
+- Physics: Elements should not just "appear." They should have weight. Use spring physics for hover states.
+
+Detailed Section Architecture:
+
+1. The "Sentient" Hero (WebGL):
+- Background: A dark void (#050505).
+- The Object: In the center, render a React Three Fiber scene: A wireframe sphere or abstract mesh that slowly morphs/breathes using a Perlin noise shader. It reacts to mouse position (looks at the cursor).
+- Foreground: Huge typography layered over the 3D object.
+- Text: "SYSTEM ARCHITECT" (Top Left), "INTERFACE DESIGNER" (Bottom Right).
+- Center: A magnetic button that says "Initialize".
+
+2. The "Stream of Consciousness" (About):
+- Layout: A horizontal scroll section triggered by vertical scrolling (pin the section).
+- Content: Large, single-sentence value propositions describing your AI philosophy.
+- Effect: As the user scrolls, the text should have a "skew" velocity effect (skew-x based on scroll speed).
+
+3. Selected Works (The Distortion Gallery):
+- Structure: A single-column list, widely spaced.
+- Interaction: Project titles are large (6xl).
+- When hovering a title, a project image floats near the cursor.
+- Crucial: The floating image must have a "displacement map" or "RGB split" glitch effect on movement (simulating AI processing data).
+- Tags (e.g., "Next.js", "OpenAI") appear in small monospace pills next to the title.
+
+4. Technical Arsenal (Marquee):
+- Two rows of infinite scrolling text (Marquee).
+- Row 1 moves Left, Row 2 moves Right.
+- Content: Tech stack items mixed with abstract concepts (e.g., "PYTHON • LATENCY • EMPATHY • PYTORCH • INTUITION").
+- Style: Outline text (transparent fill, white stroke) that fills with solid white on hover.
+
+5. The Footer (The Hand-off):
+- A massive "Let's Collaborate" link that spans 100% width.
+- On hover, the background of the footer creates a "curtain reveal" effect using a distinct color (Deep Electric Blue).
+- Include a "Local Time" clock that updates every second in milliseconds (e.g., 12:45:12.005) to emphasize precision.
+
+Animation Guidelines:
+- Page Load: Staggered entry. Lines reveal from 0% width to 100%. Text slides up from masked clipping paths.
+- Scroll: Use framer-motion useScroll to drive parallax effects on images vs. text.
+- Cursor: Replace the default cursor with a small custom dot that expands into a ring when hovering interactive elements (blend-mode: difference).
+
+Code Request:
+Provide the full React code structure. For the Three.js part, create a separate component <SentientSphere /> using @react-three/fiber. For the smooth scrolling, wrap the app in a <SmoothScroll> component using @studio-freight/react-lenis.`,
+    category: "portfolio",
+    tags: ["Portfolio", "Three.js", "R3F", "WebGL", "Lenis", "Awwwards"],
+    author: { name: "Raj", avatar: "" },
+    previewUrl: "https://v0.link/6vICeLo",
+    createdAt: "2024-01-22",
   },
 
   // ========== AUTHENTICATION ==========
