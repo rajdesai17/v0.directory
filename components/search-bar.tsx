@@ -2,8 +2,8 @@
 
 import type React from "react"
 import { Search } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useState, Suspense, useEffect, useCallback } from "react"
+import { useRouter, useSearchParams, usePathname } from "next/navigation"
+import { useState, Suspense, useEffect, useCallback, useRef } from "react"
 
 interface SearchBarProps {
   placeholder?: string
@@ -12,32 +12,42 @@ interface SearchBarProps {
 
 function SearchBarContent({ placeholder = "Search for a prompt...", className }: SearchBarProps) {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const [query, setQuery] = useState(searchParams.get("q") || "")
+  const hasInteracted = useRef(false)
 
   const debouncedSearch = useCallback(
     (value: string) => {
+      if (!hasInteracted.current) return
+
       const trimmed = value.trim()
       if (trimmed) {
         router.push(`/browse?q=${encodeURIComponent(trimmed)}`)
-      } else {
+      } else if (pathname === "/browse") {
         router.push("/browse")
       }
     },
-    [router],
+    [router, pathname],
   )
 
   useEffect(() => {
     const timer = setTimeout(() => {
       debouncedSearch(query)
-    }, 300) // 300ms debounce
+    }, 300)
 
     return () => clearTimeout(timer)
   }, [query, debouncedSearch])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
+    hasInteracted.current = true
     debouncedSearch(query)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    hasInteracted.current = true
+    setQuery(e.target.value)
   }
 
   return (
@@ -48,7 +58,7 @@ function SearchBarContent({ placeholder = "Search for a prompt...", className }:
           type="search"
           placeholder={placeholder}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleChange}
           className="h-12 w-full rounded-lg border border-border bg-card px-4 pl-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground focus:outline-none"
         />
       </div>
