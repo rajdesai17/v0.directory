@@ -2,8 +2,8 @@
 
 import type React from "react"
 import { Search } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { useState, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useState, Suspense, useEffect, useCallback } from "react"
 
 interface SearchBarProps {
   placeholder?: string
@@ -12,13 +12,32 @@ interface SearchBarProps {
 
 function SearchBarContent({ placeholder = "Search for a prompt...", className }: SearchBarProps) {
   const router = useRouter()
-  const [query, setQuery] = useState("")
+  const searchParams = useSearchParams()
+  const [query, setQuery] = useState(searchParams.get("q") || "")
+
+  const debouncedSearch = useCallback(
+    (value: string) => {
+      const trimmed = value.trim()
+      if (trimmed) {
+        router.push(`/browse?q=${encodeURIComponent(trimmed)}`)
+      } else {
+        router.push("/browse")
+      }
+    },
+    [router],
+  )
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      debouncedSearch(query)
+    }, 300) // 300ms debounce
+
+    return () => clearTimeout(timer)
+  }, [query, debouncedSearch])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (query.trim()) {
-      router.push(`/browse?q=${encodeURIComponent(query.trim())}`)
-    }
+    debouncedSearch(query)
   }
 
   return (

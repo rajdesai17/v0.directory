@@ -48,10 +48,11 @@ export interface Category {
 
 export const categories: Category[] = [
   { name: "Dashboards", slug: "dashboards", count: 4 },
-  { name: "Landing Pages", slug: "landing-pages", count: 4 },
+  { name: "Landing Pages", slug: "landing-pages", count: 5 },
   { name: "Components", slug: "components", count: 4 },
   { name: "E-commerce", slug: "ecommerce", count: 4 },
-  { name: "Portfolio", slug: "portfolio", count: 3 },
+  { name: "Portfolio", slug: "portfolio", count: 4 },
+  { name: "Authentication", slug: "authentication", count: 1 },
   { name: "Animations", slug: "animations", count: 3 },
   { name: "Apps", slug: "apps", count: 4 },
 ]
@@ -205,117 +206,6 @@ export const mcps: MCP[] = [
     mcpUrl: "https://mcp.sanity.io",
     authType: "bearer",
     docsUrl: "https://sanity.io/docs/mcp",
-  },
-]
-
-export const instructions: Instruction[] = [
-  {
-    id: "1",
-    slug: "clean-code-practices",
-    title: "Clean Code Practices",
-    content: `Always follow these clean code practices:
-
-- Write self-documenting code with clear variable and function names
-- Keep functions small and focused on a single responsibility
-- Use meaningful comments only when the code cannot explain itself
-- Follow consistent formatting and indentation
-- Avoid deep nesting - extract complex logic into separate functions
-- Write tests for critical functionality
-- Handle errors gracefully with proper error messages`,
-    category: "general",
-    tags: ["Clean Code", "Best Practices", "DRY"],
-    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-15",
-  },
-  {
-    id: "2",
-    slug: "typescript-strict-mode",
-    title: "TypeScript Strict Mode",
-    content: `Enable and follow TypeScript strict mode guidelines:
-
-- Always enable strict mode in tsconfig.json
-- Never use 'any' type - use 'unknown' and type guards instead
-- Define explicit return types for functions
-- Use discriminated unions for complex state
-- Leverage utility types (Partial, Required, Pick, Omit)
-- Implement proper null checking
-- Use const assertions for literal types`,
-    category: "typescript",
-    tags: ["TypeScript", "Type Safety", "Strict Mode"],
-    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-14",
-  },
-  {
-    id: "3",
-    slug: "react-component-patterns",
-    title: "React Component Patterns",
-    content: `Follow these React component patterns:
-
-- Prefer functional components with hooks
-- Use composition over inheritance
-- Implement proper prop typing with TypeScript
-- Memoize expensive computations with useMemo
-- Use useCallback for callback props
-- Implement error boundaries for graceful error handling
-- Keep components focused and reusable`,
-    category: "react",
-    tags: ["React", "Components", "Hooks"],
-    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-13",
-  },
-  {
-    id: "4",
-    slug: "accessibility-guidelines",
-    title: "Accessibility Guidelines",
-    content: `Ensure your applications are accessible:
-
-- Use semantic HTML elements
-- Provide alt text for all images
-- Ensure sufficient color contrast
-- Support keyboard navigation
-- Use ARIA attributes appropriately
-- Test with screen readers
-- Implement focus management for modals and dialogs`,
-    category: "accessibility",
-    tags: ["A11y", "WCAG", "Screen Readers"],
-    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-12",
-  },
-  {
-    id: "5",
-    slug: "performance-optimization",
-    title: "Performance Optimization",
-    content: `Optimize your application performance:
-
-- Implement code splitting and lazy loading
-- Optimize images with next/image
-- Use proper caching strategies
-- Minimize bundle size
-- Implement virtual scrolling for long lists
-- Use web workers for heavy computations
-- Monitor Core Web Vitals`,
-    category: "performance",
-    tags: ["Performance", "Optimization", "Core Web Vitals"],
-    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-11",
-  },
-  {
-    id: "6",
-    slug: "security-best-practices",
-    title: "Security Best Practices",
-    content: `Follow security best practices:
-
-- Validate and sanitize all user inputs
-- Use parameterized queries to prevent SQL injection
-- Implement proper authentication and authorization
-- Use HTTPS everywhere
-- Set secure HTTP headers
-- Protect against XSS and CSRF attacks
-- Keep dependencies updated`,
-    category: "security",
-    tags: ["Security", "XSS", "CSRF"],
-    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
-    createdAt: "2024-01-10",
   },
 ]
 
@@ -1095,7 +985,7 @@ URL State:
 
   // ========== PORTFOLIO ==========
   {
-    id: "17",
+    id: "18",
     slug: "terminal-portfolio",
     title: "Developer Portfolio with Terminal Theme",
     content: `Create a unique developer portfolio with terminal/code aesthetics.
@@ -1345,7 +1235,7 @@ Mobile Optimization:
 - Reduced blur for performance
 - Simplified animations
 - Touch-friendly inputs`,
-    category: "authentication",
+    category: "components",
     tags: ["Glassmorphism", "Login", "Gradient", "Modern"],
     author: { name: "v0 Community", avatar: "/diverse-group-avatars.png" },
     createdAt: "2023-12-26",
@@ -1362,7 +1252,7 @@ Steps:
 3. Preferences: Interest selection, notification settings
 4. Team/Workspace: Create or join organization
 5. Tour: Interactive product walkthrough
-6. Complete: Success celebration
+6. Complete: Celebration animations on complete
 
 Design Patterns:
 - Progress bar/stepper
@@ -1383,7 +1273,7 @@ Animations:
 - Progress bar animation
 - Confetti on completion
 - Micro-interactions on selections`,
-    category: "authentication",
+    category: "components",
     tags: ["Onboarding", "Multi-step", "User Experience", "Flow"],
     author: { name: "v0 Community", avatar: "/diverse-group-avatars.png" },
     createdAt: "2023-12-25",
@@ -1709,6 +1599,139 @@ export function getFeaturedMCPs(): MCP[] {
   return mcps.filter((m) => m.featured)
 }
 
+// The instructions array has been removed as per the updates.
+// export function getInstructionBySlug(slug: string): Instruction | undefined {
+//   return instructions.find((i) => i.slug === slug)
+// }
+
+// export function searchInstructions(query: string): Instruction[] {
+//   const lowerQuery = query.toLowerCase()
+//   return instructions.filter(
+//     (i) =>
+//       i.title.toLowerCase().includes(lowerQuery) ||
+//       i.content.toLowerCase().includes(lowerQuery) ||
+//       i.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
+//   )
+// }
+
+export function searchMCPs(query: string): MCP[] {
+  const lowerQuery = query.toLowerCase()
+  return mcps.filter(
+    (m) => m.name.toLowerCase().includes(lowerQuery) || m.description.toLowerCase().includes(lowerQuery),
+  )
+}
+
+export const instructions: Instruction[] = [
+  {
+    id: "1",
+    slug: "clean-code-practices",
+    title: "Clean Code Practices",
+    content: `Always follow these clean code practices:
+
+- Write self-documenting code with clear variable and function names
+- Keep functions small and focused on a single responsibility
+- Use meaningful comments only when the code cannot explain itself
+- Follow consistent formatting and indentation
+- Avoid deep nesting - extract complex logic into separate functions
+- Write tests for critical functionality
+- Handle errors gracefully with proper error messages`,
+    category: "general",
+    tags: ["Clean Code", "Best Practices", "DRY"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-15",
+  },
+  {
+    id: "2",
+    slug: "typescript-strict-mode",
+    title: "TypeScript Strict Mode",
+    content: `Enable and follow TypeScript strict mode guidelines:
+
+- Always enable strict mode in tsconfig.json
+- Never use 'any' type - use 'unknown' and type guards instead
+- Define explicit return types for functions
+- Use discriminated unions for complex state
+- Leverage utility types (Partial, Required, Pick, Omit)
+- Implement proper null checking
+- Use const assertions for literal types`,
+    category: "typescript",
+    tags: ["TypeScript", "Type Safety", "Strict Mode"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-14",
+  },
+  {
+    id: "3",
+    slug: "react-component-patterns",
+    title: "React Component Patterns",
+    content: `Follow these React component patterns:
+
+- Prefer functional components with hooks
+- Use composition over inheritance
+- Implement proper prop typing with TypeScript
+- Memoize expensive computations with useMemo
+- Use useCallback for callback props
+- Implement error boundaries for graceful error handling
+- Keep components focused and reusable`,
+    category: "react",
+    tags: ["React", "Components", "Hooks"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-13",
+  },
+  {
+    id: "4",
+    slug: "accessibility-guidelines",
+    title: "Accessibility Guidelines",
+    content: `Ensure your applications are accessible:
+
+- Use semantic HTML elements
+- Provide alt text for all images
+- Ensure sufficient color contrast
+- Support keyboard navigation
+- Use ARIA attributes appropriately
+- Test with screen readers
+- Implement focus management for modals and dialogs`,
+    category: "accessibility",
+    tags: ["A11y", "WCAG", "Screen Readers"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-12",
+  },
+  {
+    id: "5",
+    slug: "performance-optimization",
+    title: "Performance Optimization",
+    content: `Optimize your application performance:
+
+- Implement code splitting and lazy loading
+- Optimize images with next/image
+- Use proper caching strategies
+- Minimize bundle size
+- Implement virtual scrolling for long lists
+- Use web workers for heavy computations
+- Monitor Core Web Vitals`,
+    category: "performance",
+    tags: ["Performance", "Optimization", "Core Web Vitals"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-11",
+  },
+  {
+    id: "6",
+    slug: "security-best-practices",
+    title: "Security Best Practices",
+    content: `Follow security best practices:
+
+- Validate and sanitize all user inputs
+- Use parameterized queries to prevent SQL injection
+- Implement proper authentication and authorization
+- Use HTTPS everywhere
+- Set secure HTTP headers
+- Protect against XSS and CSRF attacks
+- Keep dependencies updated`,
+    category: "security",
+    tags: ["Security", "XSS", "CSRF"],
+    author: { name: "v0 Team", avatar: "/diverse-group-avatars.png" },
+    createdAt: "2024-01-10",
+  },
+]
+
 export function getInstructionBySlug(slug: string): Instruction | undefined {
   return instructions.find((i) => i.slug === slug)
 }
@@ -1720,12 +1743,5 @@ export function searchInstructions(query: string): Instruction[] {
       i.title.toLowerCase().includes(lowerQuery) ||
       i.content.toLowerCase().includes(lowerQuery) ||
       i.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
-  )
-}
-
-export function searchMCPs(query: string): MCP[] {
-  const lowerQuery = query.toLowerCase()
-  return mcps.filter(
-    (m) => m.name.toLowerCase().includes(lowerQuery) || m.description.toLowerCase().includes(lowerQuery),
   )
 }

@@ -10,6 +10,7 @@ const categories = [
   { name: "Components", slug: "components" },
   { name: "E-commerce", slug: "ecommerce" },
   { name: "Portfolio", slug: "portfolio" },
+  { name: "Authentication", slug: "authentication" },
   { name: "Animations", slug: "animations" },
   { name: "Apps", slug: "apps" },
 ]
