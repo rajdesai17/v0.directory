@@ -52,7 +52,6 @@ export const categories: Category[] = [
   { name: "Components", slug: "components", count: 4 },
   { name: "E-commerce", slug: "ecommerce", count: 4 },
   { name: "Portfolio", slug: "portfolio", count: 3 },
-  { name: "Authentication", slug: "authentication", count: 3 },
   { name: "Animations", slug: "animations", count: 3 },
   { name: "Apps", slug: "apps", count: 4 },
 ]
@@ -1409,9 +1408,7 @@ Implementation:
 - Next.js App Router compatible
 - Preserve scroll position option
 - Loading state during transition
-- Exit animations before route change
-
-Page Exit Animations:
+- Page Exit Animations:
 - Elements fade/slide out
 - Staggered children exit
 - Smooth height collapse
