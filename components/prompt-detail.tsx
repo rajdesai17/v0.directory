@@ -106,7 +106,19 @@ export function PromptDetail({ prompt }: PromptDetailProps) {
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
                 <User className="h-4 w-4 text-muted-foreground" />
               </div>
-              <span className="text-sm text-foreground">{prompt.author.name}</span>
+              <span className="text-sm text-foreground">By {prompt.author.name}</span>
+              {prompt.author.twitter && (
+                <a
+                  href={`https://x.com/${prompt.author.twitter}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary text-muted-foreground transition-colors hover:bg-secondary/80 hover:text-foreground"
+                >
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+              )}
             </div>
 
             {prompt.previewUrl && (

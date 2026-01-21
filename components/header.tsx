@@ -13,6 +13,7 @@ const categories = [
   { name: "Authentication", slug: "authentication" },
   { name: "Animations", slug: "animations" },
   { name: "Apps", slug: "apps" },
+  { name: "Code Quality", slug: "code-quality" },
 ]
 
 export function Header() {

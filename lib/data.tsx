@@ -8,6 +8,7 @@ export interface Prompt {
   author: {
     name: string
     avatar: string
+    twitter?: string
   }
   createdAt: string
   previewUrl?: string
@@ -55,6 +56,7 @@ export const categories: Category[] = [
   { name: "Authentication", slug: "authentication", count: 1 },
   { name: "Animations", slug: "animations", count: 3 },
   { name: "Apps", slug: "apps", count: 4 },
+  { name: "Code Quality", slug: "code-quality", count: 11 },
 ]
 
 export const mcps: MCP[] = [
@@ -243,7 +245,7 @@ Pricing: Pro Tier with "Border Beam" animation. Smooth sliding toggle for billin
 Framework: Next.js (App Router), Tailwind CSS. Animations: Framer Motion, GSAP. Icons: Lucide React (stroke width: 1.5px). Optimization: next/font for local fonts, zero Layout Shift.`,
     category: "landing-pages",
     tags: ["Next.js", "Tailwind CSS", "Framer Motion", "SaaS", "Dark Theme"],
-    author: { name: "Raj", avatar: "" },
+    author: { name: "Raj", avatar: "", twitter: "rajoninternet" },
     createdAt: "2024-01-20",
     previewUrl: "https://v0.link/6qUhlbF",
   },
@@ -394,7 +396,7 @@ components/
   footer.tsx`,
     category: "landing-pages",
     tags: ["Agency", "Glassmorphism", "Animations", "Bento Grid", "Dark Theme"],
-    author: { name: "Raj", avatar: "" },
+    author: { name: "Raj", avatar: "", twitter: "rajoninternet" },
     createdAt: "2024-01-21",
   },
   {
@@ -1154,7 +1156,7 @@ Code Request:
 Provide the full React code structure. For the Three.js part, create a separate component <SentientSphere /> using @react-three/fiber. For the smooth scrolling, wrap the app in a <SmoothScroll> component using @studio-freight/react-lenis.`,
     category: "portfolio",
     tags: ["Portfolio", "Three.js", "R3F", "WebGL", "Lenis", "Awwwards"],
-    author: { name: "Raj", avatar: "" },
+    author: { name: "Raj", avatar: "", twitter: "rajoninternet" },
     previewUrl: "https://v0.link/6vICeLo",
     createdAt: "2024-01-22",
   },
@@ -1570,6 +1572,238 @@ Animations:
     tags: ["Weather", "API", "Animation", "Location"],
     author: { name: "v0 Community", avatar: "/diverse-group-avatars.png" },
     createdAt: "2023-12-18",
+  },
+  {
+    id: "42",
+    slug: "useeffect-best-practices",
+    title: "useEffect Best Practices Refactor",
+    content: `You are a senior React engineer. Refactor the provided React/Next.js codebase to follow strict useEffect best practices.
+
+Goals (in priority order):
+1) Eliminate unnecessary useEffect usage:
+   - Remove effects used only to derive state from props/state.
+   - Replace derived state with direct computation during render or memoization.
+   - Avoid syncing props to state unless explicitly required.
+
+2) Make remaining effects correct and stable:
+   - Every effect must have a correct dependency array.
+   - Do not disable react-hooks/exhaustive-deps.
+   - Stabilize objects/arrays with useMemo and functions with useCallback.
+
+3) Prevent infinite loops and redundant renders:
+   - Avoid effects that immediately re-trigger themselves.
+   - Use functional state updates when referencing previous state.
+
+4) Handle side effects properly:
+   - Effects only for true side effects (subscriptions, timers, network, external libs).
+   - Include cleanups and abort in-flight work when deps change.
+   - Ensure Strict Mode safety (no double-subscribe or double-fetch bugs).
+
+5) Prefer better patterns over effects:
+   - Use event handlers for user-driven logic.
+   - Prefer Server Components, loaders, or SWR/React Query for data fetching.
+
+Repository-wide instructions:
+- Search the entire repository for useEffect usage.
+- For each occurrence, decide whether it should be removed, refactored, or kept.
+
+Output:
+- Provide updated code only for modified files.
+- Include a summary of effects found, removed, refactored, and kept.`,
+    category: "code-quality",
+    tags: ["React", "useEffect", "Performance", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "43",
+    slug: "eslint-disable-cleanup",
+    title: "ESLint Disable Cleanup",
+    content: `You are a senior frontend engineer acting as a repo-wide refactor agent.
+
+Objective:
+Find, evaluate, and eliminate unnecessary eslint-disable comments across the entire codebase.
+
+Scope:
+- Search for eslint-disable, eslint-disable-next-line, eslint-disable-line, and file-level disables.
+
+Rules:
+1) Classify why the disable exists before changing code.
+2) Fix the underlying issue instead of silencing the rule.
+3) Only keep disables when absolutely unavoidable (e.g., third-party limitations).
+4) Never introduce new disables to make lint pass.
+
+Output:
+- Modify only affected files.
+- Provide a summary of disables found, removed, refactored, and intentionally kept with justification.`,
+    category: "code-quality",
+    tags: ["ESLint", "Code Quality", "Linting", "Refactoring"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "44",
+    slug: "tree-shaking-bundle-optimization",
+    title: "Tree-Shaking & Bundle Size Optimization",
+    content: `You are a senior frontend performance engineer.
+
+Objective:
+Identify and fix tree-shaking and bundle-size issues across the repository.
+
+Detect:
+- import * as X from libraries
+- Imports from package roots instead of subpaths
+- Barrel files (index.ts) exporting large module graphs
+- Side-effectful imports
+- Client components importing heavy or server-only modules
+
+Rules:
+- Prefer direct named imports and subpath imports.
+- Reduce or eliminate barrel files that defeat tree-shaking.
+- Move heavy logic out of client components.
+
+Output:
+- Modify only affected files.
+- Provide a summary of blockers found and qualitative bundle-size risk reduced.`,
+    category: "code-quality",
+    tags: ["Performance", "Bundle Size", "Tree Shaking", "Optimization"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "45",
+    slug: "client-server-boundary-violations",
+    title: "Client/Server Boundary Violations",
+    content: `Scan the repository for client components that import server-only modules, heavy utilities, or secrets.
+
+Rules:
+- Remove unnecessary 'use client' directives.
+- Ensure client components import only client-safe dependencies.
+
+Output:
+- Update only offending files.
+- Summarize violations fixed.`,
+    category: "code-quality",
+    tags: ["Next.js", "Server Components", "Client Components", "Security"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "46",
+    slug: "accidental-rerender-detection",
+    title: "Accidental Re-render Detection",
+    content: `Find props and state patterns that cause unnecessary re-renders.
+
+Detect:
+- Inline object/array props
+- Unstable callbacks
+- Overuse of Context for frequently changing values
+
+Refactor:
+- Stabilize references with useMemo/useCallback.
+- Memoize expensive leaf components where appropriate.`,
+    category: "code-quality",
+    tags: ["React", "Performance", "Rendering", "Optimization"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "47",
+    slug: "overfetching-network-waste",
+    title: "Over-fetching & Network Waste",
+    content: `Scan the repository for duplicated fetch logic, over-fetching, and missing deduplication.
+
+Refactor:
+- Hoist shared fetches.
+- Prefer loaders, hooks, or caching libraries.
+
+Output:
+- Summarize network calls reduced.`,
+    category: "code-quality",
+    tags: ["Network", "Performance", "Data Fetching", "Optimization"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "48",
+    slug: "hydration-ssr-mismatch-detection",
+    title: "Hydration & SSR Mismatch Detection",
+    content: `Find render-time non-determinism such as Date.now(), Math.random(), browser-only APIs, or locale-dependent formatting in render paths.
+
+Refactor:
+- Move non-determinism to effects or server-only logic.
+
+Output:
+- List issues fixed.`,
+    category: "code-quality",
+    tags: ["SSR", "Hydration", "Next.js", "React"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "49",
+    slug: "css-styling-payload-reduction",
+    title: "CSS & Styling Payload Reduction",
+    content: `Scan for unused CSS, overly broad global styles, large Tailwind safelists, and unnecessary font files.
+
+Refactor:
+- Scope styles narrowly.
+- Remove unused utilities.
+
+Output:
+- Summarize CSS payload reductions.`,
+    category: "code-quality",
+    tags: ["CSS", "Tailwind", "Performance", "Styling"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "50",
+    slug: "polyfill-transpilation-bloat",
+    title: "Polyfill & Transpilation Bloat",
+    content: `Detect libraries or APIs that trigger heavy polyfills or ES5 transpilation.
+
+Refactor:
+- Replace with modern alternatives when possible.
+
+Output:
+- List sources of polyfill bloat.`,
+    category: "code-quality",
+    tags: ["Performance", "Polyfills", "Transpilation", "Bundle Size"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "51",
+    slug: "dead-code-unused-exports",
+    title: "Dead Code & Unused Exports",
+    content: `Scan the repository for unused exports, files, hooks, and feature-flagged code paths that are always off.
+
+Refactor:
+- Remove dead code safely.
+
+Output:
+- Summarize files and exports removed.`,
+    category: "code-quality",
+    tags: ["Dead Code", "Refactoring", "Code Quality", "Cleanup"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+  },
+  {
+    id: "52",
+    slug: "debug-logging-leak-cleanup",
+    title: "Debug & Logging Leak Cleanup",
+    content: `Find console logs, debug flags, and dev-only logic shipped to production paths.
+
+Refactor:
+- Remove or guard with environment checks.
+
+Output:
+- Summarize debug code removed.`,
+    category: "code-quality",
+    tags: ["Debug", "Logging", "Production", "Cleanup"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
   },
 ]
 

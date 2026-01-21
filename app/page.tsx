@@ -50,6 +50,11 @@ const contributors = [
     name: "Raj",
     twitter: "https://x.com/rajoninternet",
   },
+  {
+    id: "charles",
+    name: "Charles",
+    twitter: "https://x.com/WebRenew_",
+  },
 ]
 
 const skeletonsBefore = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-before-${i + 1}` }))
