@@ -304,6 +304,12 @@ export default function HomePage() {
         transition={{ delay: 0.6, duration: 0.4 }}
       >
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
+          <p className="text-center text-xs text-muted-foreground mb-2">
+            Built with ♥ using{" "}
+            <Link href="https://v0.dev" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">
+              v0
+            </Link>
+          </p>
           <p className="text-center text-xs text-muted-foreground/60">
             This site is not directly affiliated with Vercel or v0.
           </p>
