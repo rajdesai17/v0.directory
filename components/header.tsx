@@ -83,7 +83,7 @@ export function Header() {
                 {categories.map((category) => (
                   <Link
                     key={category.slug}
-                    href={`/browse?category=${category.slug}`}
+                    href={`/browse/${category.slug}`}
                     onClick={() => setCategoriesOpen(false)}
                     className="block rounded-md px-3 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
@@ -170,7 +170,7 @@ export function Header() {
                 {categories.map((category) => (
                   <Link
                     key={category.slug}
-                    href={`/browse?category=${category.slug}`}
+                    href={`/browse/${category.slug}`}
                     onClick={() => setMobileMenuOpen(false)}
                     className="rounded-md px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >

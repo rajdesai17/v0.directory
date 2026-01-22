@@ -67,7 +67,7 @@ export function PromptDetail({ prompt, fromCategory }: PromptDetailProps) {
     setTimeout(() => setClaudeCopied(false), 3000)
   }
 
-  const backHref = fromCategory ? `/browse?category=${fromCategory}` : "/browse"
+  const backHref = fromCategory ? `/browse/${fromCategory}` : "/browse"
 
   return (
     <div>

@@ -2,27 +2,25 @@ import { Header } from "@/components/header"
 import { CategorySidebar } from "@/components/category-sidebar"
 import { PromptCard } from "@/components/prompt-card"
 import { SearchBar } from "@/components/search-bar"
-import { categories, prompts, searchPrompts, getPromptsByCategory } from "@/lib/data"
+import { categories, getPromptsByCategory } from "@/lib/data"
+import { notFound } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
+import Loading from "./loading"
 
-interface BrowsePageProps {
-  searchParams: Promise<{ category?: string; q?: string }>
+interface CategoryPageProps {
+  params: Promise<{ category: string }>
 }
 
-export default async function BrowsePage({ searchParams }: BrowsePageProps) {
-  const params = await searchParams
-  const { category, q } = params
-
-  let filteredPrompts = prompts
-  let title = "All Prompts"
-
-  if (q) {
-    filteredPrompts = searchPrompts(q)
-    title = `Search results for "${q}"`
-  } else if (category) {
-    filteredPrompts = getPromptsByCategory(category)
-    const categoryData = categories.find((c) => c.slug === category)
-    title = categoryData?.name || "Category"
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const { category } = await params
+  
+  const categoryData = categories.find((c) => c.slug === category)
+  if (!categoryData) {
+    notFound()
   }
+
+  const filteredPrompts = getPromptsByCategory(category)
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -37,14 +35,16 @@ export default async function BrowsePage({ searchParams }: BrowsePageProps) {
 
             <div className="min-h-[600px]">
               <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <h1 className="text-lg font-semibold text-foreground whitespace-nowrap">{title}</h1>
-                <SearchBar placeholder="Search prompts..." className="w-full sm:w-72" />
+                <h1 className="text-lg font-semibold text-foreground whitespace-nowrap">{categoryData.name}</h1>
+                <Suspense fallback={null}>
+                  <SearchBar placeholder="Search prompts..." className="w-full sm:w-72" />
+                </Suspense>
               </div>
 
               {filteredPrompts.length === 0 ? (
                 <div className="pt-32">
                   <p className="text-sm text-muted-foreground text-center">
-                    No prompts found. Try a different search or category.
+                    No prompts found in this category.
                   </p>
                 </div>
               ) : (

@@ -143,7 +143,7 @@ function HomeContent() {
             ].map((category) => (
               <Link
                 key={category.slug}
-                href={`/browse?category=${category.slug}`}
+                href={`/browse/${category.slug}`}
                 className="group flex flex-col rounded-xl border border-border/50 bg-[#0a0a0a] p-4 transition-all hover:border-border hover:bg-[#111111]"
               >
                 <h3 className="text-sm font-semibold text-foreground">{category.name}</h3>
@@ -172,7 +172,7 @@ function HomeContent() {
                 {[...categories, ...categories].map((category, index) => (
                   <Link
                     key={`${category.slug}-${index}`}
-                    href={`/browse?category=${category.slug}`}
+                    href={`/browse/${category.slug}`}
                     className="flex shrink-0 items-center gap-2 rounded-lg border border-border/50 bg-card/30 px-4 py-2.5 transition-all hover:border-border hover:bg-card/60"
                   >
                     <span className="text-sm font-medium text-foreground">{category.name}</span>
@@ -186,7 +186,7 @@ function HomeContent() {
                 {[...categories, ...categories].map((category, index) => (
                   <Link
                     key={`${category.slug}-duplicate-${index}`}
-                    href={`/browse?category=${category.slug}`}
+                    href={`/browse/${category.slug}`}
                     className="flex shrink-0 items-center gap-2 rounded-lg border border-border/50 bg-card/30 px-4 py-2.5 transition-all hover:border-border hover:bg-card/60"
                   >
                     <span className="text-sm font-medium text-foreground">{category.name}</span>
