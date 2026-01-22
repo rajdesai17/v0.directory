@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { Header } from "@/components/header"
 import { categories } from "@/lib/data"
 import { ChevronDown } from "lucide-react"
@@ -32,6 +32,16 @@ export default function SubmitPage() {
     ...categories.map((c) => ({ value: c.slug, label: c.name })),
     { value: "other", label: "Other (specify)" },
   ]
+
+  // Stable field change handler
+  const handleFieldChange = useCallback((field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({ ...prev, [field]: e.target.value }))
+  }, [])
+
+  // Stable auth type handler
+  const handleAuthTypeChange = useCallback((authType: "none" | "bearer" | "headers" | "oauth") => {
+    setFormData(prev => ({ ...prev, authType }))
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -172,7 +182,7 @@ export default function SubmitPage() {
                       type="text"
                       id="title"
                       value={formData.title}
-                      onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                      onChange={handleFieldChange("title")}
                       placeholder={
                         submissionType === "mcp"
                           ? "e.g., GitHub MCP"
@@ -193,7 +203,7 @@ export default function SubmitPage() {
                       type="text"
                       id="description"
                       value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      onChange={handleFieldChange("description")}
                       placeholder="Brief description"
                       className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                       required
@@ -211,7 +221,7 @@ export default function SubmitPage() {
                       <textarea
                         id="prompt"
                         value={formData.prompt}
-                        onChange={(e) => setFormData({ ...formData, prompt: e.target.value })}
+                        onChange={handleFieldChange("prompt")}
                         placeholder="Paste your complete prompt here..."
                         rows={10}
                         className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
@@ -228,7 +238,7 @@ export default function SubmitPage() {
                           <select
                             id="category"
                             value={formData.category}
-                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                            onChange={handleFieldChange("category")}
                             className="h-10 w-full appearance-none rounded-lg border border-border bg-muted/30 px-3 pr-10 text-sm text-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                             required
                           >
@@ -253,7 +263,7 @@ export default function SubmitPage() {
                           type="url"
                           id="v0Link"
                           value={formData.v0Link}
-                          onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
+                          onChange={handleFieldChange("v0Link")}
                           placeholder="https://v0.dev/t/..."
                           className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                         />
@@ -269,7 +279,7 @@ export default function SubmitPage() {
                           type="text"
                           id="customCategory"
                           value={formData.customCategory}
-                          onChange={(e) => setFormData({ ...formData, customCategory: e.target.value })}
+                          onChange={handleFieldChange("customCategory")}
                           placeholder="e.g., E-commerce, Healthcare"
                           className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                           required
@@ -289,7 +299,7 @@ export default function SubmitPage() {
                         type="url"
                         id="mcpUrl"
                         value={formData.mcpUrl}
-                        onChange={(e) => setFormData({ ...formData, mcpUrl: e.target.value })}
+                        onChange={handleFieldChange("mcpUrl")}
                         placeholder="https://mcp.example.com/mcp"
                         className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                         required
@@ -303,7 +313,7 @@ export default function SubmitPage() {
                           <button
                             key={auth}
                             type="button"
-                            onClick={() => setFormData({ ...formData, authType: auth })}
+                            onClick={() => handleAuthTypeChange(auth)}
                             className={`h-9 px-4 rounded-lg text-sm transition-colors ${
                               formData.authType === auth
                                 ? "bg-muted text-foreground"
@@ -324,7 +334,7 @@ export default function SubmitPage() {
                         type="url"
                         id="v0Link"
                         value={formData.v0Link}
-                        onChange={(e) => setFormData({ ...formData, v0Link: e.target.value })}
+                        onChange={handleFieldChange("v0Link")}
                         placeholder="https://docs.example.com/mcp"
                         className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                       />
@@ -340,7 +350,7 @@ export default function SubmitPage() {
                     <textarea
                       id="instructionContent"
                       value={formData.instructionContent}
-                      onChange={(e) => setFormData({ ...formData, instructionContent: e.target.value })}
+                      onChange={handleFieldChange("instructionContent")}
                       placeholder="Write the instruction that should be added to v0's custom instructions..."
                       rows={8}
                       className="w-full resize-none rounded-lg border border-border bg-muted/30 px-3 py-3 font-mono text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
@@ -358,7 +368,7 @@ export default function SubmitPage() {
                       type="text"
                       id="author"
                       value={formData.author}
-                      onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+                      onChange={handleFieldChange("author")}
                       placeholder="How should we credit you?"
                       className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     />
@@ -372,7 +382,7 @@ export default function SubmitPage() {
                       type="text"
                       id="xUsername"
                       value={formData.xUsername}
-                      onChange={(e) => setFormData({ ...formData, xUsername: e.target.value })}
+                      onChange={handleFieldChange("xUsername")}
                       placeholder="@username"
                       className="h-10 w-full rounded-lg border border-border bg-muted/30 px-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-muted-foreground/50"
                     />

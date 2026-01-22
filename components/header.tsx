@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Github, ChevronDown, Menu, X } from "lucide-react"
 
 const categories = [
@@ -20,6 +20,11 @@ export function Header() {
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const toggleCategories = useCallback(() => setCategoriesOpen(prev => !prev), [])
+  const closeCategories = useCallback(() => setCategoriesOpen(false), [])
+  const toggleMobileMenu = useCallback(() => setMobileMenuOpen(prev => !prev), [])
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), [])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -71,7 +76,7 @@ export function Header() {
           {/* Categories Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <button
-              onClick={() => setCategoriesOpen(!categoriesOpen)}
+              onClick={toggleCategories}
               className="flex items-center gap-1 rounded-md px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               Categories
@@ -84,7 +89,7 @@ export function Header() {
                   <Link
                     key={category.slug}
                     href={`/browse/${category.slug}`}
-                    onClick={() => setCategoriesOpen(false)}
+                    onClick={closeCategories}
                     className="block rounded-md px-3 py-2 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     {category.name}
@@ -129,7 +134,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={toggleMobileMenu}
             className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
           >
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -143,21 +148,21 @@ export function Header() {
           <nav className="flex flex-col gap-1">
             <Link
               href="/browse"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               Prompts
             </Link>
             <Link
               href="/mcps"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               MCPs
             </Link>
             <Link
               href="/instructions"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               Instructions
@@ -171,7 +176,7 @@ export function Header() {
                   <Link
                     key={category.slug}
                     href={`/browse/${category.slug}`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={closeMobileMenu}
                     className="rounded-md px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     {category.name}
@@ -181,14 +186,14 @@ export function Header() {
             </div>
             <Link
               href="/submit"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               Submit
             </Link>
             <Link
               href="/about"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               About
@@ -197,7 +202,7 @@ export function Header() {
               href="https://v0.dev/docs/introduction"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={closeMobileMenu}
               className="rounded-md px-3 py-2 text-[14px] text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               Learn

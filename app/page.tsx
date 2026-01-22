@@ -60,17 +60,25 @@ const contributors = [
 const skeletonsBefore = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-before-${i + 1}` }))
 const skeletonsAfter = Array.from({ length: 3 }, (_, i) => ({ id: `skeleton-after-${i + 1}` }))
 
+const featuredCategories = [
+  { slug: "dashboards", name: "Dashboards", description: "Analytics, admin panels, and data visualization interfaces for monitoring and managing your applications." },
+  { slug: "landing-pages", name: "Landing Pages", description: "High-converting marketing pages, hero sections, and promotional layouts for products and services." },
+  { slug: "components", name: "Components", description: "Reusable UI elements, forms, modals, and interactive widgets to enhance your applications." },
+  { slug: "code-quality", name: "Code Quality", description: "Refactoring prompts, best practices, and optimization tools for cleaner, more maintainable code." },
+]
+
+const featuredSlugs = [
+  "premium-saas-landing-page",
+  "agency-landing-page",
+  "startup-landing-page",
+  "product-launch-landing",
+  "ai-product-landing",
+  "analytics-dashboard",
+  "brutalist-void-portfolio",
+  "finance-dashboard",
+]
+
 function HomeContent() {
-  const featuredSlugs = [
-    "premium-saas-landing-page",
-    "agency-landing-page",
-    "startup-landing-page",
-    "product-launch-landing",
-    "ai-product-landing",
-    "analytics-dashboard",
-    "brutalist-void-portfolio", // Replaced admin-dashboard
-    "finance-dashboard",
-  ]
   const featuredPrompts = featuredSlugs.map((slug) => prompts.find((p) => p.slug === slug)).filter(Boolean)
 
   return (
@@ -135,12 +143,7 @@ function HomeContent() {
 
           {/* Featured Categories - 4 cards grid */}
           <motion.div className="grid grid-cols-1 gap-3 mb-4 sm:grid-cols-2 lg:grid-cols-4" variants={itemVariants}>
-            {[
-              { slug: "dashboards", name: "Dashboards", description: "Analytics, admin panels, and data visualization interfaces for monitoring and managing your applications." },
-              { slug: "landing-pages", name: "Landing Pages", description: "High-converting marketing pages, hero sections, and promotional layouts for products and services." },
-              { slug: "components", name: "Components", description: "Reusable UI elements, forms, modals, and interactive widgets to enhance your applications." },
-              { slug: "code-quality", name: "Code Quality", description: "Refactoring prompts, best practices, and optimization tools for cleaner, more maintainable code." },
-            ].map((category) => (
+            {featuredCategories.map((category) => (
               <Link
                 key={category.slug}
                 href={`/browse/${category.slug}`}

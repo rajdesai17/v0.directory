@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
+import { memo, useState, useRef, useEffect, useCallback } from "react"
 import Link from "next/link"
 import type { Prompt } from "@/lib/data"
-import { useState, useRef, useEffect } from "react"
 import { Copy, ChevronDown, Check } from "lucide-react"
 
 interface PromptCardProps {
@@ -11,7 +11,7 @@ interface PromptCardProps {
   currentCategory?: string
 }
 
-export function PromptCard({ prompt, currentCategory }: PromptCardProps) {
+export const PromptCard = memo(function PromptCard({ prompt, currentCategory }: PromptCardProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [copiedType, setCopiedType] = useState<"prompt" | "claude" | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -26,7 +26,7 @@ export function PromptCard({ prompt, currentCategory }: PromptCardProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  const handleCopyPrompt = async (e: React.MouseEvent) => {
+  const handleCopyPrompt = useCallback(async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     await navigator.clipboard.writeText(prompt.content)
@@ -35,9 +35,9 @@ export function PromptCard({ prompt, currentCategory }: PromptCardProps) {
       setCopiedType(null)
       setDropdownOpen(false)
     }, 1500)
-  }
+  }, [prompt.content])
 
-  const handleCopyClaudeCommand = async (e: React.MouseEvent) => {
+  const handleCopyClaudeCommand = useCallback(async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     const promptId = prompt.title
@@ -65,7 +65,7 @@ export function PromptCard({ prompt, currentCategory }: PromptCardProps) {
       setCopiedType(null)
       setDropdownOpen(false)
     }, 1500)
-  }
+  }, [prompt.title, prompt.content])
 
   const truncatedContent = prompt.content.length > 100 ? prompt.content.slice(0, 100) + "..." : prompt.content
 
@@ -142,4 +142,4 @@ export function PromptCard({ prompt, currentCategory }: PromptCardProps) {
       </div>
     </div>
   )
-}
+})
