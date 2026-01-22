@@ -5,6 +5,7 @@ import { getPromptBySlug, prompts } from "@/lib/data"
 
 interface PromptPageProps {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ from?: string }>
 }
 
 export async function generateStaticParams() {
@@ -13,8 +14,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function PromptPage({ params }: PromptPageProps) {
+export default async function PromptPage({ params, searchParams }: PromptPageProps) {
   const { slug } = await params
+  const { from } = await searchParams
   const prompt = getPromptBySlug(slug)
 
   if (!prompt) {
@@ -26,7 +28,7 @@ export default async function PromptPage({ params }: PromptPageProps) {
       <Header />
 
       <main className="mx-auto max-w-[1400px] px-6 py-10">
-        <PromptDetail prompt={prompt} />
+        <PromptDetail prompt={prompt} fromCategory={from} />
       </main>
     </div>
   )

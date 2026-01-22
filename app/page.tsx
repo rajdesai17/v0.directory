@@ -4,7 +4,7 @@ import { Suspense } from "react"
 import { Header } from "@/components/header"
 import { SearchBar } from "@/components/search-bar"
 import { PromptCard } from "@/components/prompt-card"
-import { prompts } from "@/lib/data"
+import { prompts, categories } from "@/lib/data"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { motion } from "framer-motion"
@@ -113,12 +113,101 @@ function HomeContent() {
         </div>
       </motion.section>
 
+      {/* Categories Section */}
       <motion.section
         className="py-6"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.15 }}
+      >
+        <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
+          <motion.div className="flex items-center justify-between mb-4" variants={itemVariants}>
+            <h2 className="text-sm font-medium text-foreground">Browse by Category</h2>
+            <Link
+              href="/browse"
+              className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              View all
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </Link>
+          </motion.div>
+
+          {/* Featured Categories - 4 cards grid */}
+          <motion.div className="grid grid-cols-1 gap-3 mb-4 sm:grid-cols-2 lg:grid-cols-4" variants={itemVariants}>
+            {[
+              { slug: "dashboards", name: "Dashboards", description: "Analytics, admin panels, and data visualization interfaces for monitoring and managing your applications." },
+              { slug: "landing-pages", name: "Landing Pages", description: "High-converting marketing pages, hero sections, and promotional layouts for products and services." },
+              { slug: "components", name: "Components", description: "Reusable UI elements, forms, modals, and interactive widgets to enhance your applications." },
+              { slug: "code-quality", name: "Code Quality", description: "Refactoring prompts, best practices, and optimization tools for cleaner, more maintainable code." },
+            ].map((category) => (
+              <Link
+                key={category.slug}
+                href={`/browse?category=${category.slug}`}
+                className="group flex flex-col rounded-xl border border-border/50 bg-[#0a0a0a] p-4 transition-all hover:border-border hover:bg-[#111111]"
+              >
+                <h3 className="text-sm font-semibold text-foreground">{category.name}</h3>
+                <p className="mt-2 flex-1 text-xs leading-relaxed text-muted-foreground line-clamp-2">{category.description}</p>
+                <div className="mt-3">
+                  <span className="inline-flex items-center rounded-md border border-border/50 bg-secondary/30 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors group-hover:bg-secondary/50 group-hover:text-foreground">
+                    View
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </motion.div>
+          
+          {/* Auto-scrolling marquee */}
+          <motion.div 
+            className="relative overflow-hidden"
+            variants={itemVariants}
+          >
+            {/* Fade edges */}
+            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-background to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-background to-transparent" />
+            
+            {/* Scrolling container */}
+            <div className="group flex">
+              <div className="flex animate-marquee gap-3 group-hover:[animation-play-state:paused]">
+                {[...categories, ...categories].map((category, index) => (
+                  <Link
+                    key={`${category.slug}-${index}`}
+                    href={`/browse?category=${category.slug}`}
+                    className="flex shrink-0 items-center gap-2 rounded-lg border border-border/50 bg-card/30 px-4 py-2.5 transition-all hover:border-border hover:bg-card/60"
+                  >
+                    <span className="text-sm font-medium text-foreground">{category.name}</span>
+                    <span className="rounded-full bg-secondary/50 px-2 py-0.5 text-xs text-muted-foreground">
+                      {category.count}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <div className="flex animate-marquee gap-3 group-hover:[animation-play-state:paused]" aria-hidden="true">
+                {[...categories, ...categories].map((category, index) => (
+                  <Link
+                    key={`${category.slug}-duplicate-${index}`}
+                    href={`/browse?category=${category.slug}`}
+                    className="flex shrink-0 items-center gap-2 rounded-lg border border-border/50 bg-card/30 px-4 py-2.5 transition-all hover:border-border hover:bg-card/60"
+                  >
+                    <span className="text-sm font-medium text-foreground">{category.name}</span>
+                    <span className="rounded-full bg-secondary/50 px-2 py-0.5 text-xs text-muted-foreground">
+                      {category.count}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Featured Prompts Section */}
+      <motion.section
+        className="py-6"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        transition={{ delay: 0.25 }}
       >
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
           <motion.div className="flex items-center justify-between" variants={itemVariants}>
