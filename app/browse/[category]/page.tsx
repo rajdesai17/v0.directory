@@ -4,9 +4,7 @@ import { PromptCard } from "@/components/prompt-card"
 import { SearchBar } from "@/components/search-bar"
 import { categories, getPromptsByCategory } from "@/lib/data"
 import { notFound } from "next/navigation"
-import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
-import Loading from "./loading"
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>
