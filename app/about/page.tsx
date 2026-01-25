@@ -1,6 +1,10 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import Link from "next/link"
 import { Github } from "lucide-react"
+import { staticPageMetadata } from "@/lib/seo"
+
+export const metadata: Metadata = staticPageMetadata.about
 
 export default function AboutPage() {
   return (

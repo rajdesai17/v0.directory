@@ -12,6 +12,21 @@ export interface Prompt {
   }
   createdAt: string
   previewUrl?: string
+  // SEO-specific fields (optional)
+  seo?: {
+    metaTitle?: string      // Override default title
+    metaDescription?: string // Override default description
+    focusKeyword?: string   // Primary SEO keyword
+    noIndex?: boolean       // Exclude from search
+  }
+  // Content enrichment
+  faqs?: Array<{
+    question: string
+    answer: string
+  }>
+  relatedSlugs?: string[]   // Manual related content override
+  difficulty?: "beginner" | "intermediate" | "advanced"
+  estimatedTime?: string    // e.g., "5 min read"
 }
 
 export interface MCP {
@@ -45,18 +60,68 @@ export interface Category {
   name: string
   slug: string
   count: number
+  // SEO fields (optional)
+  description?: string       // Unique category description for meta
+  longDescription?: string   // Extended content for category pages
+  icon?: string
+  featuredPromptSlugs?: string[] // Highlight specific prompts
 }
 
 export const categories: Category[] = [
-  { name: "Dashboards", slug: "dashboards", count: 4 },
-  { name: "Landing Pages", slug: "landing-pages", count: 5 },
-  { name: "Components", slug: "components", count: 4 },
-  { name: "E-commerce", slug: "ecommerce", count: 4 },
-  { name: "Portfolio", slug: "portfolio", count: 4 },
-  { name: "Authentication", slug: "authentication", count: 1 },
-  { name: "Animations", slug: "animations", count: 3 },
-  { name: "Apps", slug: "apps", count: 4 },
-  { name: "Code Quality", slug: "code-quality", count: 11 },
+  { 
+    name: "Dashboards", 
+    slug: "dashboards", 
+    count: 4,
+    description: "Build powerful analytics dashboards, admin panels, and data visualization interfaces with v0. Perfect for monitoring, managing, and displaying complex data in intuitive layouts."
+  },
+  { 
+    name: "Landing Pages", 
+    slug: "landing-pages", 
+    count: 5,
+    description: "Create high-converting landing pages, hero sections, and marketing layouts with v0. Designed to capture attention and drive conversions for SaaS, startups, and product launches."
+  },
+  { 
+    name: "Components", 
+    slug: "components", 
+    count: 4,
+    description: "Discover reusable UI components, forms, modals, and interactive widgets for your applications. Build consistent, accessible interfaces faster with these v0 prompts."
+  },
+  { 
+    name: "E-commerce", 
+    slug: "ecommerce", 
+    count: 4,
+    description: "Design stunning e-commerce experiences including product pages, shopping carts, checkout flows, and storefront layouts optimized for conversions."
+  },
+  { 
+    name: "Portfolio", 
+    slug: "portfolio", 
+    count: 4,
+    description: "Showcase your work with beautiful portfolio designs. From minimalist to creative layouts, find the perfect prompt to highlight your projects and skills."
+  },
+  { 
+    name: "Authentication", 
+    slug: "authentication", 
+    count: 1,
+    description: "Build secure and user-friendly authentication flows including login forms, signup pages, password reset interfaces, and multi-factor authentication screens."
+  },
+  { 
+    name: "Animations", 
+    slug: "animations", 
+    count: 3,
+    description: "Add life to your interfaces with smooth animations and micro-interactions. Create engaging user experiences with motion design prompts for v0."
+  },
+  { 
+    name: "Apps", 
+    slug: "apps", 
+    count: 4,
+    description: "Build complete application interfaces including mobile apps, web apps, and productivity tools. From chat applications to task managers, find comprehensive UI prompts."
+  },
+  { 
+    name: "Code Quality", 
+    slug: "code-quality", 
+    count: 11,
+    description: "Improve your codebase with prompts focused on refactoring, best practices, testing, and optimization. Write cleaner, more maintainable code with AI assistance."
+  },
 ]
 
 export const mcps: MCP[] = [
@@ -1978,4 +2043,62 @@ export function searchInstructions(query: string): Instruction[] {
       i.content.toLowerCase().includes(lowerQuery) ||
       i.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
   )
+}
+
+// =============================================================================
+// Related Content Functions (for SEO internal linking)
+// =============================================================================
+
+/**
+ * Calculate relevance score between two prompts for related content
+ */
+function calculatePromptRelevanceScore(source: Prompt, target: Prompt): number {
+  let score = 0
+  
+  // Same category = high relevance
+  if (source.category === target.category) {
+    score += 10
+  }
+  
+  // Shared tags = medium relevance
+  const sharedTags = source.tags.filter((t) => target.tags.includes(t))
+  score += sharedTags.length * 3
+  
+  // Same author = low relevance bonus
+  if (source.author.name === target.author.name) {
+    score += 2
+  }
+  
+  return score
+}
+
+/**
+ * Get related prompts for a given prompt based on category and tags
+ */
+export function getRelatedPrompts(prompt: Prompt, limit = 4): Prompt[] {
+  return prompts
+    .filter((p) => p.id !== prompt.id)
+    .map((p) => ({
+      prompt: p,
+      score: calculatePromptRelevanceScore(prompt, p),
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ prompt }) => prompt)
+}
+
+/**
+ * Get prompts from the same category (excluding current prompt)
+ */
+export function getPromptsByCategoryExcluding(category: string, excludeId: string, limit = 4): Prompt[] {
+  return prompts
+    .filter((p) => p.category === category && p.id !== excludeId)
+    .slice(0, limit)
+}
+
+/**
+ * Get category data by slug
+ */
+export function getCategoryBySlug(slug: string): Category | undefined {
+  return categories.find((c) => c.slug === slug)
 }

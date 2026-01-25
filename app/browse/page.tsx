@@ -1,8 +1,12 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { CategorySidebar } from "@/components/category-sidebar"
 import { PromptCard } from "@/components/prompt-card"
 import { SearchBar } from "@/components/search-bar"
 import { categories, prompts, searchPrompts, getPromptsByCategory } from "@/lib/data"
+import { staticPageMetadata } from "@/lib/seo"
+
+export const metadata: Metadata = staticPageMetadata.browse
 
 interface BrowsePageProps {
   searchParams: Promise<{ category?: string; q?: string }>

@@ -9,10 +9,29 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "v0 Prompts - Discover and Share Prompts for v0",
+  metadataBase: new URL("https://v0.directory"),
+  title: {
+    default: "v0.directory - Discover Prompts, MCPs & Instructions for v0",
+    template: "%s | v0.directory",
+  },
   description:
-    "The home for v0 enthusiasts where you can explore and share prompts, discover best practices, and level up your AI-assisted development workflow.",
+    "Discover and share prompts, MCP servers, and custom instructions for v0 by Vercel. Build beautiful UIs faster with curated, ready-to-use prompts.",
   generator: "v0.app",
+  keywords: ["v0", "prompts", "vercel", "ai", "ui design", "code generation", "mcp", "model context protocol"],
+  authors: [{ name: "v0.directory" }],
+  creator: "v0.directory",
+  publisher: "v0.directory",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       {
@@ -29,6 +48,22 @@ export const metadata: Metadata = {
       },
     ],
     apple: "/apple-icon.png",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://v0.directory",
+    siteName: "v0.directory",
+    title: "v0.directory - Discover Prompts, MCPs & Instructions for v0",
+    description:
+      "Discover and share prompts, MCP servers, and custom instructions for v0 by Vercel. Build beautiful UIs faster with curated, ready-to-use prompts.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "v0.directory - Discover Prompts, MCPs & Instructions for v0",
+    description:
+      "Discover and share prompts, MCP servers, and custom instructions for v0 by Vercel. Build beautiful UIs faster with curated, ready-to-use prompts.",
+    site: "@v0directory",
   },
 }
 
