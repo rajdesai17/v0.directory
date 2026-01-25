@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { CategorySidebar } from "@/components/category-sidebar"
 import { PromptCard } from "@/components/prompt-card"
@@ -5,9 +6,30 @@ import { SearchBar } from "@/components/search-bar"
 import { categories, getPromptsByCategory } from "@/lib/data"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import { generateCategoryMetadata, siteConfig } from "@/lib/seo"
+import { JsonLd } from "@/components/seo/json-ld"
+import { generateCollectionSchema, generateBreadcrumbSchema } from "@/lib/seo/schemas"
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>
+}
+
+export async function generateStaticParams() {
+  return categories.map((category) => ({
+    category: category.slug,
+  }))
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { category } = await params
+  const categoryData = categories.find((c) => c.slug === category)
+  
+  if (!categoryData) {
+    return { title: "Category Not Found" }
+  }
+  
+  const prompts = getPromptsByCategory(category)
+  return generateCategoryMetadata(categoryData, prompts.length)
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -20,8 +42,17 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const filteredPrompts = getPromptsByCategory(category)
 
+  // Generate structured data
+  const collectionSchema = generateCollectionSchema(categoryData, filteredPrompts)
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: siteConfig.url },
+    { name: "Browse", url: `${siteConfig.url}/browse` },
+    { name: categoryData.name, url: `${siteConfig.url}/browse/${category}` },
+  ])
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <JsonLd data={[collectionSchema, breadcrumbSchema]} />
       <Header />
 
       <main className="flex-1 w-full">

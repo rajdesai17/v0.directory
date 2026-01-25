@@ -1,8 +1,16 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { getInstructionBySlug, instructions } from "@/lib/data"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Copy, Share2, Download } from "lucide-react"
+import { generateInstructionMetadata, siteConfig } from "@/lib/seo"
+import { JsonLd } from "@/components/seo/json-ld"
+import { generateInstructionSchema, generateBreadcrumbSchema } from "@/lib/seo/schemas"
+
+interface InstructionPageProps {
+  params: Promise<{ slug: string }>
+}
 
 export function generateStaticParams() {
   return instructions.map((instruction) => ({
@@ -10,7 +18,18 @@ export function generateStaticParams() {
   }))
 }
 
-export default async function InstructionDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: InstructionPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const instruction = getInstructionBySlug(slug)
+  
+  if (!instruction) {
+    return { title: "Instruction Not Found" }
+  }
+  
+  return generateInstructionMetadata(instruction)
+}
+
+export default async function InstructionDetailPage({ params }: InstructionPageProps) {
   const { slug } = await params
   const instruction = getInstructionBySlug(slug)
 
@@ -18,8 +37,17 @@ export default async function InstructionDetailPage({ params }: { params: Promis
     notFound()
   }
 
+  // Generate structured data
+  const instructionSchema = generateInstructionSchema(instruction)
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: siteConfig.url },
+    { name: "Instructions", url: `${siteConfig.url}/instructions` },
+    { name: instruction.title, url: `${siteConfig.url}/instructions/${instruction.slug}` },
+  ])
+
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd data={[instructionSchema, breadcrumbSchema]} />
       <Header />
       <main className="py-14">
         <div className="mx-auto max-w-[1200px] px-8 lg:px-16">
