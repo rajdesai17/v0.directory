@@ -62,7 +62,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <CategorySidebar categories={categories} activeCategory={category} />
             </div>
 
-            <div className="min-h-[600px]">
+            <div className="min-h-[600px] lg:max-h-[calc(100vh-180px)] lg:overflow-y-auto">
               <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <h1 className="text-lg font-semibold text-foreground whitespace-nowrap">{categoryData.name}</h1>
                 <Suspense fallback={null}>
