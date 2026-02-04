@@ -325,6 +325,7 @@ Asset Handling: Isometric assets should be high-quality SVGs or layered PNGs sep
     tags: ["Isometric", "Framer Motion", "3D", "Interactive", "Next.js", "Tailwind CSS"],
     author: { name: "Raj", avatar: "", twitter: "rajoninternet" },
     createdAt: "2024-02-04",
+    previewUrl: "https://v0.link/xHp6Nc2",
     difficulty: "advanced",
     estimatedTime: "15 min read",
   },
