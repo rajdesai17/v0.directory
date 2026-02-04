@@ -68,6 +68,7 @@ const featuredCategories = [
 ]
 
 const featuredSlugs = [
+  "isometric-digital-ecosystem-landing",
   "premium-saas-landing-page",
   "agency-landing-page",
   "startup-landing-page",
@@ -75,7 +76,6 @@ const featuredSlugs = [
   "ai-product-landing",
   "analytics-dashboard",
   "brutalist-void-portfolio",
-  "finance-dashboard",
 ]
 
 function HomeContent() {

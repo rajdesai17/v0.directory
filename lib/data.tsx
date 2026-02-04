@@ -77,7 +77,7 @@ export const categories: Category[] = [
   { 
     name: "Landing Pages", 
     slug: "landing-pages", 
-    count: 5,
+    count: 6,
     description: "Create high-converting landing pages, hero sections, and marketing layouts with v0. Designed to capture attention and drive conversions for SaaS, startups, and product launches."
   },
   { 
@@ -278,6 +278,56 @@ export const mcps: MCP[] = [
 
 export const prompts: Prompt[] = [
   // ========== LANDING PAGES ==========
+  {
+    id: "100",
+    slug: "isometric-digital-ecosystem-landing",
+    title: "Isometric Digital Ecosystem Landing Page",
+    content: `Role: Lead Creative Technologist & Motion Designer (specializing in 3D-for-web and interactive storytelling).
+
+Task: Build a modern, high-end landing page centered around a complex Isometric Digital Ecosystem. The aesthetic should be "Playful Engineering"—clean lines, sophisticated palettes, and physics-based motion animation that makes the scene feel alive.
+
+1. Aesthetic & Atmosphere:
+
+Color Palette: "Soft Futurism." A base of Off-White (#F8F9FA) and Deep Slate Blue (#1A202C). Accents should be sophisticated and slightly muted: Coral (#FF8C94), Teal (#4FD1C5), and Soft Gold (#F6E05E).
+
+Lighting & Texture: The isometric elements must not look flat. They need soft, directional lighting (top-left light source) to create gentle shadows that ground them. Overlay a subtle noise texture (opacity 0.04) over the entire viewport to add tactile depth.
+
+Typography: Pair a clean, geometric sans-serif like Geist Sans (for UI/Body) with a slightly wider header font like Inter Display (bold weight, tight tracking).
+
+2. The Hero Section (The Kinetic Diorama):
+
+Layout: A split layout. Left 40% for Typography/CTA. Right 60% for the Isometric Scene.
+
+The Scene Content: An abstract representation of a "Connected Platform." Think floating data blocks, interconnected pipelines, abstract server racks, and little data packets moving between them on rails.
+
+The Build Animation (Framer Motion Orchestration):
+
+Entrance: The scene must not just fade in. It must "construct" itself. The base platform extrudes upwards first. Then, buildings/blocks pop up with a staggered spring animation (stiffness: 200, damping: 20). Finally, connecting lines draw themselves from point A to point B.
+
+Idle State: Once built, the entire scene should have a gentle, synchronized floating/bobbing motion (a slow sine wave on the Y-axis) to feel sentient.
+
+Interaction: Implement a subtle mouse parallax effect. As the user moves the mouse, the different layers of the isometric scene should shift slightly at different speeds to create depth.
+
+3. The Page Layout & Scroll Animations:
+
+Section Transitions: Use angled section dividers (slight 5-degree tilts) instead of flat horizontal lines to maintain the dynamic feel.
+
+Feature Blocks (Scroll Reveal): As the user scrolls down, individual isometric icons for features should "pop" up from the ground plane using spring physics, followed by their text label sliding in.
+
+4. Technical Stack & Constraints:
+
+Framework: Next.js 14, Tailwind CSS.
+
+Animation Engine: Framer Motion is mandatory for coordinating the complex build sequences and floating states.
+
+Asset Handling: Isometric assets should be high-quality SVGs or layered PNGs separated into components so they can be animated individually, not one giant static image.`,
+    category: "landing-pages",
+    tags: ["Isometric", "Framer Motion", "3D", "Interactive", "Next.js", "Tailwind CSS"],
+    author: { name: "Raj", avatar: "", twitter: "rajoninternet" },
+    createdAt: "2024-02-04",
+    difficulty: "advanced",
+    estimatedTime: "15 min read",
+  },
   {
     id: "1",
     slug: "premium-saas-landing-page",
