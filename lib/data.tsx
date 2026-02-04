@@ -77,7 +77,7 @@ export const categories: Category[] = [
   { 
     name: "Landing Pages", 
     slug: "landing-pages", 
-    count: 5,
+    count: 6,
     description: "Create high-converting landing pages, hero sections, and marketing layouts with v0. Designed to capture attention and drive conversions for SaaS, startups, and product launches."
   },
   { 
@@ -119,7 +119,7 @@ export const categories: Category[] = [
   { 
     name: "Code Quality", 
     slug: "code-quality", 
-    count: 11,
+    count: 28,
     description: "Improve your codebase with prompts focused on refactoring, best practices, testing, and optimization. Write cleaner, more maintainable code with AI assistance."
   },
 ]
@@ -278,6 +278,57 @@ export const mcps: MCP[] = [
 
 export const prompts: Prompt[] = [
   // ========== LANDING PAGES ==========
+  {
+    id: "100",
+    slug: "isometric-digital-ecosystem-landing",
+    title: "Isometric Digital Ecosystem Landing Page",
+    content: `Role: Lead Creative Technologist & Motion Designer (specializing in 3D-for-web and interactive storytelling).
+
+Task: Build a modern, high-end landing page centered around a complex Isometric Digital Ecosystem. The aesthetic should be "Playful Engineering"—clean lines, sophisticated palettes, and physics-based motion animation that makes the scene feel alive.
+
+1. Aesthetic & Atmosphere:
+
+Color Palette: "Soft Futurism." A base of Off-White (#F8F9FA) and Deep Slate Blue (#1A202C). Accents should be sophisticated and slightly muted: Coral (#FF8C94), Teal (#4FD1C5), and Soft Gold (#F6E05E).
+
+Lighting & Texture: The isometric elements must not look flat. They need soft, directional lighting (top-left light source) to create gentle shadows that ground them. Overlay a subtle noise texture (opacity 0.04) over the entire viewport to add tactile depth.
+
+Typography: Pair a clean, geometric sans-serif like Geist Sans (for UI/Body) with a slightly wider header font like Inter Display (bold weight, tight tracking).
+
+2. The Hero Section (The Kinetic Diorama):
+
+Layout: A split layout. Left 40% for Typography/CTA. Right 60% for the Isometric Scene.
+
+The Scene Content: An abstract representation of a "Connected Platform." Think floating data blocks, interconnected pipelines, abstract server racks, and little data packets moving between them on rails.
+
+The Build Animation (Framer Motion Orchestration):
+
+Entrance: The scene must not just fade in. It must "construct" itself. The base platform extrudes upwards first. Then, buildings/blocks pop up with a staggered spring animation (stiffness: 200, damping: 20). Finally, connecting lines draw themselves from point A to point B.
+
+Idle State: Once built, the entire scene should have a gentle, synchronized floating/bobbing motion (a slow sine wave on the Y-axis) to feel sentient.
+
+Interaction: Implement a subtle mouse parallax effect. As the user moves the mouse, the different layers of the isometric scene should shift slightly at different speeds to create depth.
+
+3. The Page Layout & Scroll Animations:
+
+Section Transitions: Use angled section dividers (slight 5-degree tilts) instead of flat horizontal lines to maintain the dynamic feel.
+
+Feature Blocks (Scroll Reveal): As the user scrolls down, individual isometric icons for features should "pop" up from the ground plane using spring physics, followed by their text label sliding in.
+
+4. Technical Stack & Constraints:
+
+Framework: Next.js 14, Tailwind CSS.
+
+Animation Engine: Framer Motion is mandatory for coordinating the complex build sequences and floating states.
+
+Asset Handling: Isometric assets should be high-quality SVGs or layered PNGs separated into components so they can be animated individually, not one giant static image.`,
+    category: "landing-pages",
+    tags: ["Isometric", "Framer Motion", "3D", "Interactive", "Next.js", "Tailwind CSS"],
+    author: { name: "Raj", avatar: "", twitter: "rajoninternet" },
+    createdAt: "2024-02-04",
+    previewUrl: "https://v0.link/xHp6Nc2",
+    difficulty: "advanced",
+    estimatedTime: "15 min read",
+  },
   {
     id: "1",
     slug: "premium-saas-landing-page",
@@ -1869,6 +1920,333 @@ Output:
     tags: ["Debug", "Logging", "Production", "Cleanup"],
     author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
     createdAt: "2024-01-20",
+  },
+  // ========== CODE QUALITY - GOLDMINE PROMPTS (by Charles) ==========
+  {
+    id: "53",
+    slug: "implicit-behavior-detector",
+    title: "Implicit Behavior & Hidden Assumptions",
+    content: `Scan the repository for code whose correctness depends on undocumented assumptions, implicit defaults, magic values, or execution order.
+
+Look for:
+- Logic that only works if values are never null/undefined without checks
+- Index-based or positional logic
+- Order-dependent side effects
+- Magic numbers or strings without explanation
+
+Output:
+- List files and assumptions found
+- Recommend documentation, guards, or refactors`,
+    category: "code-quality",
+    tags: ["Code Quality", "Assumptions", "Documentation", "Refactoring"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "54",
+    slug: "surprising-behavior-scan",
+    title: "Surprising or Non-Obvious Behavior",
+    content: `Identify functions, hooks, or utilities whose behavior is surprising or non-obvious.
+
+Look for:
+- Functions that mutate inputs
+- Hidden side effects
+- Reads from globals or environment
+- Conditional throwing or swallowing of errors
+
+Output:
+- Explain why behavior is surprising
+- Recommend refactors or documentation`,
+    category: "code-quality",
+    tags: ["Code Quality", "Side Effects", "Documentation", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "55",
+    slug: "n-plus-one-detector",
+    title: "N+1 Queries & Fan-Out Explosions",
+    content: `Scan for code paths where a single request can trigger linear or unbounded database queries, API calls, or network requests.
+
+Output:
+- Identify N+1 or fan-out patterns
+- Suggest batching, caching, or restructuring`,
+    category: "code-quality",
+    tags: ["Performance", "Database", "N+1", "Optimization"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "56",
+    slug: "unbounded-loops-retries",
+    title: "Unbounded Loops, Polling, and Retries",
+    content: `Find loops, polling mechanisms, retries, or recursive logic without hard limits, backoff, or cancellation.
+
+Output:
+- List risky loops or retries
+- Recommend bounds or backoff strategies`,
+    category: "code-quality",
+    tags: ["Performance", "Loops", "Retries", "Reliability"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "57",
+    slug: "cache-illusion-detector",
+    title: "Cache Illusions & Misuse",
+    content: `Find code that assumes caching exists but does not enforce it.
+
+Examples:
+- Fetches without cache headers
+- In-memory caches in serverless contexts
+- Redis usage without TTLs
+
+Output:
+- Identify false cache assumptions
+- Recommend enforceable caching strategies`,
+    category: "code-quality",
+    tags: ["Caching", "Performance", "Serverless", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "58",
+    slug: "partial-failure-blindness",
+    title: "Partial Failure Blindness",
+    content: `Find places where partial failures are silently ignored.
+
+Look for:
+- Promise.all without per-item handling
+- Fire-and-forget async calls
+- Empty or overly broad catch blocks
+
+Output:
+- List failure-blind code paths
+- Recommend explicit handling`,
+    category: "code-quality",
+    tags: ["Error Handling", "Async", "Reliability", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "59",
+    slug: "error-context-loss",
+    title: "Error Context Loss",
+    content: `Find places where errors are flattened, rethrown generically, or logged without context.
+
+Examples:
+- throw new Error('failed')
+- Dropping original stack traces
+
+Output:
+- Identify context loss
+- Recommend richer error handling`,
+    category: "code-quality",
+    tags: ["Error Handling", "Debugging", "Logging", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "60",
+    slug: "false-confidence-tests",
+    title: "False Confidence Tests",
+    content: `Scan tests that would pass even if the underlying logic were incorrect.
+
+Look for:
+- Snapshots asserting nothing meaningful
+- Over-mocked dependencies
+- Tests asserting implementation details
+
+Output:
+- Flag weak tests
+- Recommend behavior-based assertions`,
+    category: "code-quality",
+    tags: ["Testing", "Code Quality", "Best Practices", "TDD"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "61",
+    slug: "untestable-code-zones",
+    title: "Untestable Code Zones",
+    content: `Identify code that is difficult or impossible to test due to tight coupling, hidden globals, or side effects.
+
+Output:
+- List untestable areas
+- Suggest refactors for testability`,
+    category: "code-quality",
+    tags: ["Testing", "Refactoring", "Coupling", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "62",
+    slug: "layer-violation-detector",
+    title: "Architecture Layer Violations",
+    content: `Find imports or dependencies that violate intended architectural layers.
+
+Examples:
+- UI importing database logic
+- Domain logic importing UI
+
+Output:
+- List violations
+- Recommend boundary fixes`,
+    category: "code-quality",
+    tags: ["Architecture", "Clean Architecture", "Dependencies", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "63",
+    slug: "one-way-door-decisions",
+    title: "One-Way Architectural Decisions",
+    content: `Identify code that represents one-way architectural decisions.
+
+Examples:
+- Hardcoded vendors
+- Tight framework coupling
+- Schemas without migration paths
+
+Output:
+- Explain long-term risk
+- Suggest mitigation`,
+    category: "code-quality",
+    tags: ["Architecture", "Technical Debt", "Vendor Lock-in", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "64",
+    slug: "race-condition-detector",
+    title: "Race Conditions & Lost Updates",
+    content: `Scan for code that may behave incorrectly under concurrent execution.
+
+Look for:
+- Read-modify-write without locking
+- Shared mutable state
+
+Output:
+- Identify race conditions
+- Recommend atomic or transactional patterns`,
+    category: "code-quality",
+    tags: ["Concurrency", "Race Conditions", "Threading", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "65",
+    slug: "async-ordering-assumptions",
+    title: "Async Ordering Assumptions",
+    content: `Find async code that assumes execution order without enforcing it.
+
+Output:
+- List ordering assumptions
+- Suggest explicit sequencing`,
+    category: "code-quality",
+    tags: ["Async", "Concurrency", "Best Practices", "JavaScript"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "66",
+    slug: "trust-boundary-violations",
+    title: "Trust Boundary Violations",
+    content: `Find places where untrusted input crosses trust boundaries without validation.
+
+Examples:
+- Client to server
+- Webhook handlers
+
+Output:
+- List violations
+- Recommend validation or sanitization`,
+    category: "code-quality",
+    tags: ["Security", "Validation", "Input Sanitization", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "67",
+    slug: "secret-leak-detector",
+    title: "Secrets & Credential Leakage",
+    content: `Find places where secrets, tokens, or credentials could leak into logs, client bundles, or errors.
+
+Output:
+- Identify leak risks
+- Recommend containment`,
+    category: "code-quality",
+    tags: ["Security", "Secrets", "Credentials", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
+  },
+  {
+    id: "68",
+    slug: "environment-mismatch-bugs",
+    title: "Environment Mismatch Bugs",
+    content: `Find code that behaves differently between dev, preview, and production.
+
+Examples:
+- process.env branching
+- Build-time vs runtime env usage
+
+Output:
+- List mismatches
+- Recommend normalization`,
+    category: "code-quality",
+    tags: ["Environment", "DevOps", "Configuration", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "69",
+    slug: "non-deterministic-builds",
+    title: "Non-Deterministic Builds",
+    content: `Find sources of non-determinism in build or generation steps.
+
+Output:
+- Identify causes
+- Recommend deterministic alternatives`,
+    category: "code-quality",
+    tags: ["Build", "CI/CD", "Determinism", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "intermediate",
+  },
+  {
+    id: "70",
+    slug: "oncall-nightmare-review",
+    title: "12-Month On-Call Nightmare Review",
+    content: `Review this repository as if you are on call for it for the next 12 months.
+
+Question:
+What would wake you up at 3am?
+
+Output:
+- List high-risk areas
+- Explain failure modes
+- Suggest preventative fixes`,
+    category: "code-quality",
+    tags: ["On-Call", "Reliability", "Incident Prevention", "Best Practices"],
+    author: { name: "Charles", avatar: "", twitter: "WebRenew_" },
+    createdAt: "2024-01-20",
+    difficulty: "advanced",
   },
 ]
 

@@ -22,7 +22,7 @@
 ### Launch Announcement (Thread)
 
 **Tweet 1 (Main)**
-```
+\`\`\`
 Just shipped v0.directory - a community-driven prompt library for @vaboratory
 
 Browse 30+ curated prompts for:
@@ -38,10 +38,10 @@ All optimized for v0's AI coding assistant.
 [LINK_PLACEHOLDER]
 
 🧵 Here's what's inside:
-```
+\`\`\`
 
 **Tweet 2**
-```
+\`\`\`
 The Problem:
 
 Getting great results from v0 requires well-crafted prompts.
@@ -49,10 +49,10 @@ Getting great results from v0 requires well-crafted prompts.
 But writing detailed prompts from scratch every time? Time-consuming.
 
 v0.directory solves this with copy-paste ready prompts that follow v0 best practices.
-```
+\`\`\`
 
 **Tweet 3**
-```
+\`\`\`
 What's included:
 
 → 30+ creative prompts across 8 categories
@@ -62,10 +62,10 @@ What's included:
 → Community submissions welcome
 
 Built with Next.js 15, Tailwind CSS, and shadcn/ui.
-```
+\`\`\`
 
 **Tweet 4**
-```
+\`\`\`
 Every prompt is structured for v0:
 
 - Clear sections & hierarchy
@@ -75,10 +75,10 @@ Every prompt is structured for v0:
 - Technology stack specifications
 
 No more vague prompts. Get production-ready results.
-```
+\`\`\`
 
 **Tweet 5**
-```
+\`\`\`
 This is just the beginning.
 
 Submit your own prompts, MCPs, or custom instructions to get featured.
@@ -89,10 +89,10 @@ Try it: [LINK_PLACEHOLDER]
 Fork it: [GITHUB_LINK_PLACEHOLDER]
 
 As a @v0 ambassador, I'm excited to see what you build!
-```
+\`\`\`
 
 ### Short Announcement
-```
+\`\`\`
 v0.directory is live!
 
 A free, community-driven prompt library for @v0
@@ -105,10 +105,10 @@ A free, community-driven prompt library for @v0
 Stop writing prompts from scratch.
 
 [LINK_PLACEHOLDER]
-```
+\`\`\`
 
 ### Engagement Post
-```
+\`\`\`
 What's your go-to v0 prompt structure?
 
 I've been collecting the best prompts for landing pages, dashboards, and components.
@@ -118,10 +118,10 @@ Now they're all in one place: v0.directory
 Drop your best prompt tips below 👇
 
 [LINK_PLACEHOLDER]
-```
+\`\`\`
 
 ### Feature Highlight - Prompts
-```
+\`\`\`
 The secret to great v0 results? Detailed prompts.
 
 v0.directory includes prompts for:
@@ -136,10 +136,10 @@ v0.directory includes prompts for:
 Each one battle-tested and ready to use.
 
 [LINK_PLACEHOLDER]
-```
+\`\`\`
 
 ### Feature Highlight - MCPs
-```
+\`\`\`
 MCPs (Model Context Protocol) supercharge your v0 workflow.
 
 v0.directory now includes a curated MCP directory:
@@ -152,7 +152,7 @@ v0.directory now includes a curated MCP directory:
 With step-by-step setup guides.
 
 [LINK_PLACEHOLDER]
-```
+\`\`\`
 
 ---
 
@@ -160,7 +160,7 @@ With step-by-step setup guides.
 
 ### Launch Announcement
 
-```
+\`\`\`
 Excited to announce v0.directory - a community-driven prompt library for v0 by Vercel.
 
 As a v0 Ambassador, I've spent months learning what makes prompts work well with v0's AI coding assistant. The difference between a vague prompt and a detailed one is night and day.
@@ -190,10 +190,10 @@ Fork it: [GITHUB_LINK_PLACEHOLDER]
 Built with Next.js 15, Tailwind CSS, and shadcn/ui.
 
 #v0 #Vercel #NextJS #AI #WebDevelopment #OpenSource
-```
+\`\`\`
 
 ### Short Update
-```
+\`\`\`
 Shipped something new for the v0 community.
 
 v0.directory - a free prompt library with 30+ curated prompts for landing pages, dashboards, e-commerce, and more.
@@ -205,19 +205,19 @@ Community contributions welcome.
 [LINK_PLACEHOLDER]
 
 #v0 #Vercel #AI #WebDevelopment
-```
+\`\`\`
 
 ---
 
 ## v0 Template Description
 
 ### Short Description (Under 160 characters)
-```
+\`\`\`
 A community-driven prompt directory for v0. Browse 30+ curated prompts, MCPs, and custom instructions. Built with Next.js 15 and shadcn/ui.
-```
+\`\`\`
 
 ### Full Description
-```
+\`\`\`
 v0.directory - The Community Prompt Library for v0
 
 A beautifully designed directory of curated prompts, MCPs (Model Context Protocol servers), and custom instructions optimized for v0 by Vercel.
@@ -250,13 +250,13 @@ Built with:
 - TypeScript
 
 Perfect for developers who want to get the most out of v0 without writing detailed prompts from scratch.
-```
+\`\`\`
 
 ---
 
 ## GitHub README
 
-```markdown
+\`\`\`markdown
 # v0.directory
 
 A community-driven prompt directory for [v0](https://v0.dev) by Vercel.
@@ -310,30 +310,30 @@ v0.directory is a curated collection of prompts, MCPs (Model Context Protocol se
 ### Installation
 
 1. Clone the repository:
-```bash
+\`\`\`bash
 git clone https://github.com/[USERNAME]/v0-directory.git
 cd v0-directory
-```
+\`\`\`
 
 2. Install dependencies:
-```bash
+\`\`\`bash
 pnpm install
-```
+\`\`\`
 
 3. Set up environment variables:
-```bash
+\`\`\`bash
 cp .env.example .env.local
-```
+\`\`\`
 
 Add your GitHub token for the submission feature:
-```
+\`\`\`
 GITHUB_TOKEN=your_github_token
-```
+\`\`\`
 
 4. Run the development server:
-```bash
+\`\`\`bash
 pnpm dev
-```
+\`\`\`
 
 5. Open [http://localhost:3000](http://localhost:3000)
 
@@ -358,7 +358,7 @@ We welcome contributions! Here's how you can help:
 
 ## Project Structure
 
-```
+\`\`\`
 ├── app/
 │   ├── page.tsx          # Homepage
 │   ├── browse/           # Browse prompts
@@ -377,7 +377,7 @@ We welcome contributions! Here's how you can help:
 │   └── utils.ts          # Utility functions
 └── public/
     └── ...
-```
+\`\`\`
 
 ## License
 
@@ -392,19 +392,19 @@ Built with [v0](https://v0.dev) by Vercel.
 ---
 
 **[LINK_PLACEHOLDER]** | **[Star on GitHub](GITHUB_LINK_PLACEHOLDER)**
-```
+\`\`\`
 
 ---
 
 ## Vercel Community Forum Blog Post
 
 ### Title
-```
+\`\`\`
 Introducing v0.directory - A Community Prompt Library for v0
-```
+\`\`\`
 
 ### Post Content
-```
+\`\`\`
 Hey Vercel Community!
 
 I'm excited to share a project I've been working on as a v0 Ambassador: **v0.directory** - a community-driven prompt library for v0.
@@ -469,19 +469,19 @@ Would love to hear your feedback and see your prompt submissions!
 ---
 
 *Built by Raj, v0 Ambassador*
-```
+\`\`\`
 
 ---
 
 ## Product Hunt Launch
 
 ### Tagline (60 characters max)
-```
+\`\`\`
 The community prompt library for v0 by Vercel
-```
+\`\`\`
 
 ### Description
-```
+\`\`\`
 v0.directory is a curated collection of prompts, MCPs, and custom instructions for v0 by Vercel.
 
 Stop writing detailed prompts from scratch. Browse 30+ battle-tested prompts across 8 categories:
@@ -505,10 +505,10 @@ Features:
 • Fully open source
 
 Built with Next.js 15, Tailwind CSS, and shadcn/ui.
-```
+\`\`\`
 
 ### First Comment (Maker)
-```
+\`\`\`
 Hey Product Hunt!
 
 I'm Raj, a v0 Ambassador, and I built v0.directory to solve a problem I kept running into: writing detailed prompts for v0 is time-consuming.
@@ -520,19 +520,19 @@ The entire site was built using v0 itself - meta, right?
 This is a community project. Submit your own prompts and get featured!
 
 Would love your feedback 🙏
-```
+\`\`\`
 
 ---
 
 ## Dev.to Article
 
 ### Title
-```
+\`\`\`
 I Built a Prompt Library for v0 - Here's What I Learned About AI-Powered Coding
-```
+\`\`\`
 
 ### Content Outline
-```
+\`\`\`
 1. Introduction
    - What is v0?
    - Why prompts matter
@@ -566,28 +566,28 @@ I Built a Prompt Library for v0 - Here's What I Learned About AI-Powered Coding
 7. Conclusion
    - Try it yourself
    - Links and resources
-```
+\`\`\`
 
 ---
 
 ## Hashtags & Keywords
 
 ### Primary Hashtags
-```
+\`\`\`
 #v0 #Vercel #NextJS #AI #WebDevelopment #OpenSource #Prompts #AICode
-```
+\`\`\`
 
 ### Secondary Hashtags
-```
+\`\`\`
 #React #TailwindCSS #shadcn #TypeScript #Frontend #WebDev #Coding #Developer
-```
+\`\`\`
 
 ### SEO Keywords
-```
+\`\`\`
 v0 prompts, v0 prompt library, v0 by vercel, ai coding prompts, v0 templates, 
 v0 examples, vercel v0, ai web development, prompt engineering, v0 mcp, 
 model context protocol, v0 custom instructions, ai coding assistant
-```
+\`\`\`
 
 ---
 
